@@ -6,18 +6,18 @@ class Ingredient
 {
 public:
 	Ingredient();
-	Ingredient(const char* name, Measure measure, unsigned int count);
+	Ingredient(const char* newName, const Measure newMeasure, const int newCount);
 	Ingredient(Ingredient &ingredient);
 	~Ingredient();
-	char* getName();
-	Measure getMeasure();
-	int getCount();
-	void setName(const char* name);
-	void setMeasure(Measure measure);
-	void setCount(unsigned int count);
+	const char* getName()const;
+	Measure getMeasure()const;
+	int getCount()const;
+	void setName(const char* newName);
+	void setMeasure(const Measure newMeasure);
+	void setCount(const int newCount);
 private:
 	char* name;
 	Measure measure;
-	unsigned int count;
+	int count;
 };
 

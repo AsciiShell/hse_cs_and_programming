@@ -1,7 +1,4 @@
 #include "Ingredient.h"
-
-
-
 Ingredient::Ingredient()
 {
 	name = nullptr;
@@ -9,51 +6,59 @@ Ingredient::Ingredient()
 	count = 0;
 }
 
-Ingredient::Ingredient(const char * name, Measure measure, unsigned int count)
+Ingredient::Ingredient(const char * newName, const Measure newMeasure, const int newCount)
 {
-	strcpy(this->name, name);
-	this->measure = measure;
-	this->count = count;
+	name = new char[strlen(newName) + 1];
+	strcpy(name, newName);
+	measure = newMeasure;
+	if (newCount >= 0)
+		count = newCount;
+	else
+		count = 0;
 }
 
 Ingredient::Ingredient(Ingredient & ingredient)
 {
-	strcpy(this->name, ingredient.name);
-	this->measure = ingredient.measure;
-	this->count = ingredient.count;
+	name = new char[strlen(ingredient.name) + 1];
+	strcpy(name, ingredient.name);
+	measure = ingredient.measure;
+	count = ingredient.count;
 }
-
 
 Ingredient::~Ingredient()
 {
 }
 
-char * Ingredient::getName()
+const char * Ingredient::getName()const
 {
-	return this->name;
+	return name;
 }
 
-Measure Ingredient::getMeasure()
+Measure Ingredient::getMeasure()const
 {
-	return this->measure;
+	return measure;
 }
 
-int Ingredient::getCount()
+int Ingredient::getCount() const
 {
-	return this->count;
+	return count;
 }
 
-void Ingredient::setName(const char * name)
+void Ingredient::setName(const char * newName)
 {
-	strcpy(this->name, name);
+	if (name != nullptr)
+		delete name;
+	name = new char[strlen(newName) + 1];
+	strcpy(name, newName);
 }
 
-void Ingredient::setMeasure(Measure measure)
+void Ingredient::setMeasure(const Measure newMeasure)
 {
-	this->measure = measure;
+	measure = newMeasure;
 }
 
-void Ingredient::setCount(unsigned int count)
+void Ingredient::setCount(const int newCount)
 {
-	this->count = count;
+	if (newCount >= 0)
+		count = newCount;
 }
