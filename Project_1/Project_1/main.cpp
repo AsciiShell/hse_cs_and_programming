@@ -1,8 +1,7 @@
 #include <QtCore/QCoreApplication>
-#include <Ingredient.h>
+#include "Test.h"
 int main(int argc, char *argv[])
 {
-	QCoreApplication a(argc, argv);
-
-	return a.exec();
+	runTests();
+	return 0;
 }
