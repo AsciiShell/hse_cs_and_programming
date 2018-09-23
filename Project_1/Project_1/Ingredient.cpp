@@ -27,6 +27,8 @@ Ingredient::Ingredient(Ingredient & ingredient)
 
 Ingredient::~Ingredient()
 {
+	if (name != nullptr)
+		delete[] name;
 }
 
 const char * Ingredient::getName()const
