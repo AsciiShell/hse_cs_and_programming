@@ -49,7 +49,7 @@ int Ingredient::getCount() const
 void Ingredient::setName(const char * newName)
 {
 	if (name != nullptr)
-		delete name;
+		delete[] name;
 	name = new char[strlen(newName) + 1];
 	strcpy(name, newName);
 }
