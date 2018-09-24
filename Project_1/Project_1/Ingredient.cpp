@@ -17,7 +17,7 @@ Ingredient::Ingredient(const char * newName, const Measure newMeasure, const int
 		count = 0;
 }
 
-Ingredient::Ingredient(Ingredient & ingredient)
+Ingredient::Ingredient(const Ingredient & ingredient)
 {
 	name = new char[strlen(ingredient.name) + 1];
 	strcpy(name, ingredient.name);
@@ -36,12 +36,12 @@ const char * Ingredient::getName()const
 	return name;
 }
 
-Measure Ingredient::getMeasure()const
+const Measure Ingredient::getMeasure()const
 {
 	return measure;
 }
 
-int Ingredient::getCount() const
+const int Ingredient::getCount() const
 {
 	return count;
 }
