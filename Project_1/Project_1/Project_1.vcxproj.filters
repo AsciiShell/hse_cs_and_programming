@@ -32,15 +32,9 @@
     <ClCompile Include="Ingredient.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Test.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ingredient.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Measure_unit.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">

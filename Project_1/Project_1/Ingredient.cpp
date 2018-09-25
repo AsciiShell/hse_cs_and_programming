@@ -1,66 +1,60 @@
 #include "Ingredient.h"
 Ingredient::Ingredient()
 {
-	name = nullptr;
-	measure = gram;
-	count = 0;
+	_name = QString();
+	_measure = GRAM;
+	_count = 0;
 }
 
-Ingredient::Ingredient(const char * newName, const Measure newMeasure, const int newCount)
+Ingredient::Ingredient(const QString name, const Measure measure, const int count)
 {
-	name = new char[strlen(newName) + 1];
-	strcpy(name, newName);
-	measure = newMeasure;
-	if (newCount >= 0)
-		count = newCount;
+	_name = name;
+	_measure = measure;
+	if (count > 0)
+		_count = count;
 	else
-		count = 0;
+		_count = 0;
 }
 
 Ingredient::Ingredient(const Ingredient & ingredient)
 {
-	name = new char[strlen(ingredient.name) + 1];
-	strcpy(name, ingredient.name);
-	measure = ingredient.measure;
-	count = ingredient.count;
+	_name = ingredient.getName();
+	_measure = ingredient._measure;
+	_count = ingredient._count;
 }
 
 Ingredient::~Ingredient()
 {
-	if (name != nullptr)
-		delete[] name;
 }
 
-const char * Ingredient::getName()const
+const QString Ingredient::getName() const
 {
-	return name;
+	return _name;
 }
 
-const Measure Ingredient::getMeasure()const
+Ingredient::Measure Ingredient::getMeasure() const
 {
-	return measure;
+	return _measure;
 }
 
-const int Ingredient::getCount() const
+int Ingredient::getCount() const
 {
-	return count;
+	return _count;
 }
 
-void Ingredient::setName(const char * newName)
+void Ingredient::setName(const QString name)
 {
-	if (name != nullptr)
-		delete[] name;
-	name = new char[strlen(newName) + 1];
-	strcpy(name, newName);
+	if (name.length() != 0)
+		_name = name;
 }
 
-void Ingredient::setMeasure(const Measure newMeasure)
+void Ingredient::setMeasure(const Measure measure)
 {
-	measure = newMeasure;
+	_measure = measure;
 }
 
-void Ingredient::setCount(const int newCount)
+void Ingredient::setCount(const int count)
 {
-	if (newCount >= 0)
-		count = newCount;
+	if (count >= 0)
+		_count = count;
 }

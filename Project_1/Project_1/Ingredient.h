@@ -1,23 +1,30 @@
 #pragma once
-#include "Measure_unit.h"
 #include <stdio.h>
 #include <iostream>
+#include <QString>
+
 class Ingredient
 {
 public:
+	enum Measure
+	{
+		GRAM,
+		MILLILITER,
+		PIECE
+	};
 	Ingredient();
-	Ingredient(const char* newName, const Measure newMeasure, const int newCount);
+	Ingredient(const QString name, const Measure measure, const int count);
 	Ingredient(const Ingredient &ingredient);
 	~Ingredient();
-	const char* getName()const;
-	const Measure getMeasure()const;
-	const int getCount()const;
-	void setName(const char* newName);
-	void setMeasure(const Measure newMeasure);
-	void setCount(const int newCount);
+	const QString getName() const;
+	Measure getMeasure() const;
+	int getCount() const;
+	void setName(const QString name);
+	void setMeasure(const Measure measure);
+	void setCount(const int count);
 private:
-	char* name;
-	Measure measure;
-	int count;
+	QString _name;
+	Measure _measure;
+	int _count;
 };
 

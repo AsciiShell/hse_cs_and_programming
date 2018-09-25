@@ -95,11 +95,9 @@
   <ItemGroup>
     <ClCompile Include="Ingredient.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ingredient.h" />
-    <ClInclude Include="Measure_unit.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Test.h" />
   </ItemGroup>
