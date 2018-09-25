@@ -19,8 +19,8 @@ Ingredient::Ingredient(const QString name, const Measure measure, const int coun
 Ingredient::Ingredient(const Ingredient & ingredient)
 {
 	_name = ingredient.getName();
-	_measure = ingredient._measure;
-	_count = ingredient._count;
+	_measure = ingredient.getMeasure();
+	_count = ingredient.getCount();
 }
 
 Ingredient::~Ingredient()
@@ -44,7 +44,7 @@ int Ingredient::getCount() const
 
 void Ingredient::setName(const QString name)
 {
-	if (name.length() != 0)
+	if (!name.isEmpty())
 		_name = name;
 }
 
