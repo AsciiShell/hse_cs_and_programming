@@ -43,7 +43,7 @@ void testSetNameWrong()
 {
 	Ingredient ingredient("Вафли", Ingredient::PIECE, 10);
 	ingredient.setName("");
-	assert(ingredient.getName() == "Вафли");
+	assert(ingredient.getName() != "");
 }
 
 void testSetMeasure()
