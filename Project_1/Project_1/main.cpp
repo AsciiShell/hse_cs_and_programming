@@ -1,7 +1,10 @@
 #include <QtCore/QCoreApplication>
-#include "Test.h"
+#include "TestIngredient.h"
+#include "TestQueue.h"
+#include "Queue.h"
 int main(int argc, char *argv[])
 {
-	runTests();
+	runTestsIngredient();
+	runTestsQueue();
 	return 0;
 }
