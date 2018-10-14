@@ -43,10 +43,13 @@
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Test.h">
+    <ClInclude Include="Queue.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Queue.h">
+    <ClInclude Include="TestIngredient.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TestQueue.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
