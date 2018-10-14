@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <iostream>
 #include <QString>
-
 class Ingredient
 {
 public:
@@ -12,6 +11,7 @@ public:
 		MILLILITER,
 		PIECE
 	};
+
 	Ingredient();
 	Ingredient(const QString name, const Measure measure, const int count);
 	Ingredient(const Ingredient &ingredient);
@@ -22,9 +22,12 @@ public:
 	void setName(const QString name);
 	void setMeasure(const Measure measure);
 	void setCount(const int count);
+	bool equal(const Ingredient ingredient) const;
 private:
 	QString _name;
 	Measure _measure;
 	int _count;
 };
 
+std::ostream& operator<<(std::ostream& out, const Ingredient::Measure  &value);
+std::ostream& operator<<(std::ostream& out, const Ingredient  &value);

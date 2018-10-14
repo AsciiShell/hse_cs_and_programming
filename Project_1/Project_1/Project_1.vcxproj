@@ -95,11 +95,14 @@
   <ItemGroup>
     <ClCompile Include="Ingredient.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Queue.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ingredient.h" />
+    <ClInclude Include="Queue.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="Test.h" />
+    <ClInclude Include="TestIngredient.h" />
+    <ClInclude Include="TestQueue.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
