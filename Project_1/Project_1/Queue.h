@@ -21,10 +21,10 @@ public:
 	void clear();
 	int getCount() const;
 
-	void dump(QString filepath) const;
-	static Queue load(QString filepath);
+	void dump(const QString filepath) const;
+	static Queue load(const QString filepath);
 
-	bool equal(const Queue queue) const;
+	bool equal(const Queue &queue) const;
 private:
 	Ingredient *_objects, *_head, *_tail;
 	int _count, _allocated;

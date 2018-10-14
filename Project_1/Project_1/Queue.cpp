@@ -77,7 +77,7 @@ int Queue::getCount() const
 }
 
 
-void Queue::dump(QString filepath) const
+void Queue::dump(const QString filepath) const
 {
 	QJsonArray jsonArray;
 	for (auto i = begin(); i < end(); i++)
@@ -95,7 +95,7 @@ void Queue::dump(QString filepath) const
 	file.close();
 }
 
-Queue Queue::load(QString filepath)
+Queue Queue::load(const QString filepath)
 {
 	QFile file(filepath);
 	file.open(QIODevice::ReadOnly);
@@ -108,7 +108,7 @@ Queue Queue::load(QString filepath)
 	return queue;
 }
 
-bool Queue::equal(const Queue queue) const
+bool Queue::equal(const Queue &queue) const
 {
 	bool result = queue.getCount() == _count;
 	for (auto i = queue.begin(); i < queue.end() && result; i++)
