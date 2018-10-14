@@ -67,7 +67,7 @@ void testSetCountWrong()
 	assert(ingredient.getCount() != -127);
 }
 
-void runTests()
+void runTestsIngredient()
 {
 	testConstructorDefault();
 
@@ -81,5 +81,4 @@ void runTests()
 	testSetMeasure();
 	testSetCount();
 	testSetCountWrong();
-	printf("All tests passed successfully!\n");
 }
