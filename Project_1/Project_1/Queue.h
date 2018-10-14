@@ -30,3 +30,4 @@ private:
 	void grow(size_t size = ALLOCATE_SIZE);
 };
 
+void printQueue(Queue queue);

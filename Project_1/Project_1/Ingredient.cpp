@@ -58,3 +58,30 @@ void Ingredient::setCount(const int count)
 	if (count >= 0)
 		_count = count;
 }
+
+
+std::ostream & operator<<(std::ostream & out, const Ingredient::Measure & value)
+{
+	switch (value)
+	{
+	case Ingredient::Measure::GRAM:
+		return out << "gramms";
+		break;
+	case Ingredient::Measure::MILLILITER:
+		return out << "milliliters";
+		break;
+	case Ingredient::Measure::PIECE:
+		return out << "pieces";
+		break;
+	default:
+		return out << "unknown";
+		break;
+	}
+
+}
+
+std::ostream & operator<<(std::ostream & out, const Ingredient & value)
+{
+	return out << value.getName().toStdString() << ": " << value.getCount() << " " << value.getMeasure();
+
+}

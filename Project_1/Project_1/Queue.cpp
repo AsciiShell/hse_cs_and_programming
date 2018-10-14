@@ -107,3 +107,9 @@ Queue Queue::load(QString filepath)
 	}
 	return queue;
 }
+
+void printQueue(Queue queue)
+{
+	for (auto i = queue.begin(); i < queue.end(); i++)
+		std::cout << i - queue.begin() + 1 << ": " << *i << std::endl;
+}

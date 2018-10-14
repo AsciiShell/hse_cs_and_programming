@@ -28,3 +28,5 @@ private:
 	int _count;
 };
 
+std::ostream& operator<<(std::ostream& out, const Ingredient::Measure  &value);
+std::ostream& operator<<(std::ostream& out, const Ingredient  &value);
