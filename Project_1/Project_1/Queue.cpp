@@ -79,19 +79,19 @@ int Queue::getCount() const
 
 void Queue::dump(QString filepath) const
 {
-	QJsonArray json_array;
+	QJsonArray jsonArray;
 	for (auto i = begin(); i < end(); i++)
 	{
-		QJsonObject json_object;
-		json_object["name"] = i->getName();
-		json_object["measure"] = i->getMeasure();
-		json_object["count"] = i->getCount();
-		json_array.append(json_object);
+		QJsonObject jsonObject;
+		jsonObject["name"] = i->getName();
+		jsonObject["measure"] = i->getMeasure();
+		jsonObject["count"] = i->getCount();
+		jsonArray.append(jsonObject);
 	}
-	QJsonDocument json_doc(json_array);
+	QJsonDocument jsonDoc(jsonArray);
 	QFile file(filepath);
 	file.open(QIODevice::WriteOnly);
-	file.write(json_doc.toJson());
+	file.write(jsonDoc.toJson());
 	file.close();
 }
 
@@ -99,11 +99,11 @@ Queue Queue::load(QString filepath)
 {
 	QFile file(filepath);
 	file.open(QIODevice::ReadOnly);
-	QJsonArray json_array = QJsonDocument::fromJson(file.readAll()).array();
+	QJsonArray jsonArray = QJsonDocument::fromJson(file.readAll()).array();
 	Queue queue;
-	for (auto i = 0; i < json_array.count(); i++) {
-		QJsonObject json_ingredient = json_array.at(i).toObject();
-		queue.push(Ingredient(json_ingredient["name"].toString(), (Ingredient::Measure)json_ingredient["measure"].toInt(), json_ingredient["count"].toInt()));
+	for (auto i = 0; i < jsonArray.count(); i++) {
+		QJsonObject jsonIngredient = jsonArray.at(i).toObject();
+		queue.push(Ingredient(jsonIngredient["name"].toString(), (Ingredient::Measure)jsonIngredient["measure"].toInt(), jsonIngredient["count"].toInt()));
 	}
 	return queue;
 }
