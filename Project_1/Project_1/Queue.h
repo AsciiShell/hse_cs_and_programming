@@ -23,6 +23,8 @@ public:
 
 	void dump(QString filepath) const;
 	static Queue load(QString filepath);
+
+	bool equal(const Queue queue) const;
 private:
 	Ingredient *_objects, *_head, *_tail;
 	int _count, _allocated;

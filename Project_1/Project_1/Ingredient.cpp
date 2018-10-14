@@ -59,6 +59,10 @@ void Ingredient::setCount(const int count)
 		_count = count;
 }
 
+bool Ingredient::equal(const Ingredient ingredient) const
+{
+	return _name == ingredient._name && _measure == ingredient._measure && _count == ingredient._count;
+}
 
 std::ostream & operator<<(std::ostream & out, const Ingredient::Measure & value)
 {

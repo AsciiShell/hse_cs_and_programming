@@ -108,6 +108,14 @@ Queue Queue::load(QString filepath)
 	return queue;
 }
 
+bool Queue::equal(const Queue queue) const
+{
+	bool result = queue.getCount() == _count;
+	for (auto i = queue.begin(); i < queue.end() && result; i++)
+		result = _objects[i - queue.begin()].equal(*i);
+	return result;
+}
+
 void printQueue(Queue queue)
 {
 	for (auto i = queue.begin(); i < queue.end(); i++)
