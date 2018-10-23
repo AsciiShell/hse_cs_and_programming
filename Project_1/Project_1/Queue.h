@@ -7,7 +7,7 @@
 class Queue
 {
 public:
-	typedef Ingredient* iterator;
+	//typedef Ingredient* iterator;
 	Queue();
 	Queue(const Queue &queue);
 	~Queue();
@@ -15,8 +15,8 @@ public:
 	void push(Ingredient &ingredient);
 	Ingredient& pop();
 
-	iterator begin() const;
-	iterator end() const;
+	//iterator begin() const;
+	//iterator end() const;
 
 	void clear();
 	int getCount() const;
@@ -26,10 +26,13 @@ public:
 
 	bool equal(const Queue &queue) const;
 private:
-	Ingredient *_objects, *_head, *_tail;
-	int _count, _allocated;
-	static const size_t ALLOCATE_SIZE = 4;
-	void grow(size_t size = ALLOCATE_SIZE);
+	struct ListItem {
+		Ingredient obj;
+		ListItem *next;
+		ListItem(const Ingredient &ingredient);
+	};
+	ListItem *_head, *_tail;
+	int _count;
 };
 
 void printQueue(Queue queue);
