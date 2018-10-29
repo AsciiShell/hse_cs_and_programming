@@ -7,10 +7,7 @@
 
 class Queue
 {
-	struct  ListItem;
 public:
-	typedef ListItem* iterator;
-
 	struct ListItem {
 		Ingredient obj;
 		ListItem *next;
@@ -21,7 +18,7 @@ public:
 		Iterator(ListItem* ptr) {
 			_ptr = ptr;
 		}
-
+		~Iterator(){}
 		Iterator operator++(int) {
 			Iterator i = *this;
 			_ptr = _ptr->next;

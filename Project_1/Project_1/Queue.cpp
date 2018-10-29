@@ -57,12 +57,11 @@ Queue::Iterator Queue::begin() const
 
 Queue::Iterator Queue::end() const
 {
-	return nullptr;
+	return Iterator(nullptr);
 }
 
 void Queue::clear()
 {
-	std::queue<int> q;
 	while (_tail != nullptr)
 	{
 		auto old_tail = _tail;
