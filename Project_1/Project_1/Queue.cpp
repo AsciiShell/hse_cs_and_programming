@@ -1,5 +1,6 @@
 #include "Queue.h"
-//typedef Ingredient* iterator;
+#include <queue> 
+
 Queue::Queue()
 {
 	_tail = _head = nullptr;
@@ -8,6 +9,8 @@ Queue::Queue()
 
 Queue::Queue(const Queue & queue)
 {
+	_tail = _head = nullptr;
+	_count = 0;
 	for (auto i = queue._tail; i != nullptr; i = i->next) {
 		push(Ingredient(i->obj));
 	}
@@ -28,6 +31,7 @@ void Queue::push(Ingredient & ingredient)
 	else {
 		auto tmp = new ListItem(ingredient);
 		_head->next = tmp;
+		_head = tmp;
 		_count += 1;
 	}
 }
@@ -46,18 +50,19 @@ Ingredient& Queue::pop()
 		throw std::exception("Queue is empty");
 }
 
-//iterator Queue::begin() const
-//{
-//	return _tail;
-//}
-//
-//iterator Queue::end() const
-//{
-//	return _head;
-//}
+Queue::Iterator Queue::begin() const
+{
+	return Iterator(_tail);
+}
+
+Queue::Iterator Queue::end() const
+{
+	return nullptr;
+}
 
 void Queue::clear()
 {
+	std::queue<int> q;
 	while (_tail != nullptr)
 	{
 		auto old_tail = _tail;
@@ -114,10 +119,12 @@ bool Queue::equal(const Queue &queue) const
 
 void printQueue(Queue queue)
 {
-	auto i = queue;
+	auto i = queue.begin();
 	int number = 1;
-	for (; i != nullptr; i = i->next)
-		std::cout << i - queue.begin() + 1 << ": " << *i << std::endl;
+	for (; i != queue.end(); i++, number++) {
+		std::cout << number << ": " << *i << std::endl;
+
+	}
 }
 
 Queue::ListItem::ListItem(const Ingredient &ingredient)
