@@ -59,7 +59,7 @@ void Ingredient::setCount(const int count)
 		_count = count;
 }
 
-bool Ingredient::equal(const Ingredient ingredient) const
+bool Ingredient::operator==(const Ingredient ingredient) const
 {
 	return _name == ingredient._name && _measure == ingredient._measure && _count == ingredient._count;
 }

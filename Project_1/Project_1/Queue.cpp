@@ -112,7 +112,7 @@ bool Queue::equal(const Queue &queue) const
 {
 	bool result = queue.getCount() == _count;
 	for (auto i = _tail, j = queue._tail; i != nullptr && j != nullptr && result; i = i->next, j = j->next)
-		result = i->obj.equal(j->obj);
+		result = i->obj == j->obj;
 	return result;
 }
 

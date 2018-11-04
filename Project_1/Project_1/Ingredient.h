@@ -22,7 +22,7 @@ public:
 	void setName(const QString name);
 	void setMeasure(const Measure measure);
 	void setCount(const int count);
-	bool equal(const Ingredient ingredient) const;
+	bool operator==(const Ingredient ingredient) const;
 private:
 	QString _name;
 	Measure _measure;
