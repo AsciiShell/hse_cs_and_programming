@@ -95,10 +95,12 @@
   <ItemGroup>
     <ClCompile Include="Ingredient.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Operation.cpp" />
     <ClCompile Include="Queue.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ingredient.h" />
+    <ClInclude Include="Operation.h" />
     <ClInclude Include="Queue.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="TestIngredient.h" />
