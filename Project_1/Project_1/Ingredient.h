@@ -2,7 +2,9 @@
 #include <stdio.h>
 #include <iostream>
 #include <QString>
-class Ingredient
+#include "IJson.h"
+
+class Ingredient : public IJson
 {
 public:
 	enum Measure
@@ -14,6 +16,7 @@ public:
 
 	Ingredient();
 	Ingredient(const QString name, const Measure measure, const int count);
+	Ingredient(const QJsonObject json);
 	Ingredient(const Ingredient &ingredient);
 	~Ingredient();
 	const QString getName() const;
@@ -23,10 +26,15 @@ public:
 	void setMeasure(const Measure measure);
 	void setCount(const int count);
 	bool operator==(const Ingredient ingredient) const;
+	// Унаследовано через IJson
+	virtual QJsonObject serialize() override;
+	virtual void deserialize(const QJsonObject object) override;
 private:
 	QString _name;
 	Measure _measure;
 	int _count;
+
+
 };
 
 std::ostream& operator<<(std::ostream& out, const Ingredient::Measure  &value);

@@ -36,7 +36,7 @@ void Queue::push(Ingredient & ingredient)
 	}
 }
 
-Ingredient& Queue::pop()
+Ingredient Queue::pop()
 {
 	if (_count > 0) {
 		auto result = _tail->obj;
@@ -82,11 +82,7 @@ void Queue::dump(const QString filepath) const
 	QJsonArray jsonArray;
 	for (auto i = _tail; i != nullptr; i = i->next)
 	{
-		QJsonObject jsonObject;
-		jsonObject["name"] = i->obj.getName();
-		jsonObject["measure"] = i->obj.getMeasure();
-		jsonObject["count"] = i->obj.getCount();
-		jsonArray.append(jsonObject);
+		jsonArray.append(i->obj.serialize());
 	}
 	QJsonDocument jsonDoc(jsonArray);
 	QFile file(filepath);
@@ -102,8 +98,9 @@ Queue Queue::load(const QString filepath)
 	QJsonArray jsonArray = QJsonDocument::fromJson(file.readAll()).array();
 	Queue queue;
 	for (auto i = 0; i < jsonArray.count(); i++) {
-		QJsonObject jsonIngredient = jsonArray.at(i).toObject();
-		queue.push(Ingredient(jsonIngredient["name"].toString(), (Ingredient::Measure)jsonIngredient["measure"].toInt(), jsonIngredient["count"].toInt()));
+		Ingredient ing;
+		ing.deserialize(jsonArray.at(i).toObject());
+		queue.push(ing);
 	}
 	return queue;
 }

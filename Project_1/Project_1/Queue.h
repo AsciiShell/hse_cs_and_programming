@@ -45,7 +45,7 @@ public:
 	~Queue();
 
 	void push(Ingredient &ingredient);
-	Ingredient& pop();
+	Ingredient pop();
 
 	Iterator begin() const;
 	Iterator end() const;

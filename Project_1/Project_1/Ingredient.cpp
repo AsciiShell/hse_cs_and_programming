@@ -16,6 +16,11 @@ Ingredient::Ingredient(const QString name, const Measure measure, const int coun
 		_count = 0;
 }
 
+Ingredient::Ingredient(const QJsonObject json)
+{
+	deserialize(json);
+}
+
 Ingredient::Ingredient(const Ingredient & ingredient)
 {
 	_name = ingredient.getName();
@@ -62,6 +67,24 @@ void Ingredient::setCount(const int count)
 bool Ingredient::operator==(const Ingredient ingredient) const
 {
 	return _name == ingredient._name && _measure == ingredient._measure && _count == ingredient._count;
+}
+
+QJsonObject Ingredient::serialize()
+{
+	QJsonObject jsonObject;
+	jsonObject["name"] = _name;
+	jsonObject["measure"] = _measure;
+	jsonObject["count"] = _count;
+	return jsonObject;
+}
+
+void Ingredient::deserialize(const QJsonObject object)
+{
+	_name = object["name"].toString();
+	_measure = static_cast<Ingredient::Measure>(object["measure"].toInt());
+	_count = object["count"].toInt();
+	if (_count < 0)
+		_count = 0;
 }
 
 std::ostream & operator<<(std::ostream & out, const Ingredient::Measure & value)
