@@ -38,6 +38,9 @@
     <ClCompile Include="Operation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="QueueItem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ingredient.h">
@@ -58,7 +61,7 @@
     <ClInclude Include="Operation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="IJson.h">
+    <ClInclude Include="QueueItem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -2,9 +2,9 @@
 #include <stdio.h>
 #include <iostream>
 #include <QString>
-#include "IJson.h"
+#include "QueueItem.h"
 
-class Ingredient : public IJson
+class Ingredient : public QueueItem
 {
 public:
 	enum Measure
@@ -26,10 +26,10 @@ public:
 	void setMeasure(const Measure measure);
 	void setCount(const int count);
 	bool operator==(const Ingredient ingredient) const;
-	// Унаследовано через IJson
+	// Унаследовано через QueueItem
 	virtual QJsonObject serialize() override;
-	virtual void deserialize(const QJsonObject object) override;
 private:
+	virtual void deserialize(const QJsonObject object) override;
 	QString _name;
 	Measure _measure;
 	int _count;

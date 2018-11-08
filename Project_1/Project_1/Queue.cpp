@@ -98,9 +98,7 @@ Queue Queue::load(const QString filepath)
 	QJsonArray jsonArray = QJsonDocument::fromJson(file.readAll()).array();
 	Queue queue;
 	for (auto i = 0; i < jsonArray.count(); i++) {
-		Ingredient ing;
-		ing.deserialize(jsonArray.at(i).toObject());
-		queue.push(ing);
+		queue.push(Ingredient(jsonArray.at(i).toObject()));
 	}
 	return queue;
 }

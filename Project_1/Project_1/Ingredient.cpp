@@ -4,12 +4,14 @@ Ingredient::Ingredient()
 	_name = QString();
 	_measure = GRAM;
 	_count = 0;
+	_kind = ITEM_INGREDIENT;
 }
 
 Ingredient::Ingredient(const QString name, const Measure measure, const int count)
 {
 	_name = name;
 	_measure = measure;
+	_kind = ITEM_INGREDIENT;
 	if (count > 0)
 		_count = count;
 	else
@@ -18,14 +20,16 @@ Ingredient::Ingredient(const QString name, const Measure measure, const int coun
 
 Ingredient::Ingredient(const QJsonObject json)
 {
+	_kind = ITEM_INGREDIENT;
 	deserialize(json);
 }
 
 Ingredient::Ingredient(const Ingredient & ingredient)
 {
-	_name = ingredient.getName();
-	_measure = ingredient.getMeasure();
-	_count = ingredient.getCount();
+	_kind = ITEM_INGREDIENT;
+	_name = ingredient._name;
+	_measure = ingredient._measure;
+	_count = ingredient._count;
 }
 
 Ingredient::~Ingredient()
