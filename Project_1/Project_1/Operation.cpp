@@ -61,6 +61,7 @@ QJsonObject Operation::serialize()
 	QJsonObject jsonObject;
 	jsonObject["action"] = _action;
 	jsonObject["duration"] = _duration;
+	jsonObject["kind"] = ITEM_OPERATION;
 	return jsonObject;
 }
 

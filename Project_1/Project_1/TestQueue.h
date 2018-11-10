@@ -77,5 +77,4 @@ void runTestsQueue() {
 	testFile();
 	testAccess();
 	testExtendedOverread();
-	printf("All tests passed successfully");
 }

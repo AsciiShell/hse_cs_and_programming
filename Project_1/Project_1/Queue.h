@@ -78,8 +78,8 @@ public:
 	T pop()
 	{
 		if (_count > 0) {
-			auto result = _tail->obj;
-			auto old_tail = _tail;
+			T result = _tail->obj;
+			ListItem* old_tail = _tail;
 			_tail = _tail->next;
 			delete old_tail;
 			_count -= 1;

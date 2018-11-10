@@ -79,6 +79,7 @@ QJsonObject Ingredient::serialize()
 	jsonObject["name"] = _name;
 	jsonObject["measure"] = _measure;
 	jsonObject["count"] = _count;
+	jsonObject["kind"] = ITEM_INGREDIENT;
 	return jsonObject;
 }
 
