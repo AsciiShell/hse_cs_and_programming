@@ -3,8 +3,8 @@
 #include "Queue.h"
 #include <assert.h>
 
-Queue generateQueue() {
-	Queue queue;
+Queue<Ingredient> generateQueue() {
+	Queue<Ingredient> queue;
 	queue.push(Ingredient("Potato", Ingredient::GRAM, 100));
 	queue.push(Ingredient("Milk", Ingredient::MILLILITER, 500));
 	queue.push(Ingredient("Salt", Ingredient::GRAM, 5));
@@ -15,8 +15,8 @@ Queue generateQueue() {
 }
 
 void testCopyConstructor() {
-	Queue queue1 = generateQueue();
-	Queue queue2(queue1);
+	Queue<Ingredient> queue1 = generateQueue();
+	Queue<Ingredient> queue2(queue1);
 	assert(queue2.equal(queue1));
 	Ingredient ingredient = queue2.pop();
 	queue2.push(ingredient);
@@ -24,29 +24,29 @@ void testCopyConstructor() {
 }
 
 void testAppend() {
-	Queue queue = generateQueue();
+	Queue<Ingredient> queue = generateQueue();
 	int lastSize = queue.getCount();
 	queue.push(Ingredient());
 	assert(queue.getCount() == lastSize + 1);
 }
 
 void testRemove() {
-	Queue queue = generateQueue();
+	Queue<Ingredient> queue = generateQueue();
 	int lastSize = queue.getCount();
 	queue.pop();
 	assert(queue.getCount() == lastSize - 1);
 }
 
 void testClear() {
-	Queue queue = generateQueue();
+	Queue<Ingredient> queue = generateQueue();
 	queue.clear();
 	assert(queue.getCount() == 0);
 }
 void testFile() {
-	Queue queue1 = generateQueue();
+	Queue<Ingredient> queue1 = generateQueue();
 	QString filename = "dump.json";
 	queue1.dump(filename);
-	Queue queue2 = Queue::load(filename);
+	Queue<Ingredient> queue2 = Queue<Ingredient>::load(filename);
 	assert(queue1.equal(queue2));
 }
 
@@ -55,7 +55,7 @@ void testAccess() {
 }
 
 void testExtendedOverread() {
-	Queue queue;
+	Queue<Ingredient> queue;
 	while (queue.getCount())
 		queue.pop();
 	bool raised = false;

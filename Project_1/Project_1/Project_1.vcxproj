@@ -96,7 +96,6 @@
     <ClCompile Include="Ingredient.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Operation.cpp" />
-    <ClCompile Include="Queue.cpp" />
     <ClCompile Include="QueueItem.cpp" />
   </ItemGroup>
   <ItemGroup>
