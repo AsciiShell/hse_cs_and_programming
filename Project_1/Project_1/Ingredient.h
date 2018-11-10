@@ -1,5 +1,4 @@
 #pragma once
-#include <stdio.h>
 #include <iostream>
 #include <QString>
 #include "QueueItem.h"
@@ -26,6 +25,28 @@ public:
 	void setMeasure(const Measure measure);
 	void setCount(const int count);
 	bool operator==(const Ingredient ingredient) const;
+	virtual void print(std::ostream& out) const override;
+	friend std::ostream& operator<<(std::ostream& out, const Ingredient::Measure  &value) {
+		switch (value)
+		{
+		case Ingredient::Measure::GRAM:
+			return out << "gramms";
+			break;
+		case Ingredient::Measure::MILLILITER:
+			return out << "milliliters";
+			break;
+		case Ingredient::Measure::PIECE:
+			return out << "pieces";
+			break;
+		default:
+			return out << "unknown";
+			break;
+		}
+	}
+	friend std::ostream& operator<<(std::ostream& out, const Ingredient  &value) {
+		value.print(out);
+		return out;
+	}
 	// Унаследовано через QueueItem
 	virtual QJsonObject serialize() override;
 private:
@@ -36,6 +57,3 @@ private:
 
 
 };
-
-std::ostream& operator<<(std::ostream& out, const Ingredient::Measure  &value);
-std::ostream& operator<<(std::ostream& out, const Ingredient  &value);

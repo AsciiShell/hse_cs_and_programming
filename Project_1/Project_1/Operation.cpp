@@ -1,3 +1,5 @@
+// This is a personal academic project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "Operation.h"
 
 Operation::Operation()
@@ -54,6 +56,11 @@ void Operation::setDuration(const int duration)
 bool Operation::operator==(const Operation operation) const
 {
 	return _duration == operation._duration && _action == operation._action;
+}
+
+void Operation::print(std::ostream & out) const
+{
+	out << _action << " for " << _duration << " seconds";
 }
 
 QJsonObject Operation::serialize()

@@ -9,6 +9,11 @@ public:
 	QueueItem();
 	virtual ~QueueItem();
 	virtual QJsonObject serialize() = 0;
+	virtual void print(std::ostream& out) const = 0;
+	friend std::ostream& operator<<(std::ostream& out, const QueueItem&value) {
+		value.print(out);
+		return out;
+	}
 protected:
 	virtual void deserialize(const QJsonObject object) = 0;
 	ItemKind _kind;

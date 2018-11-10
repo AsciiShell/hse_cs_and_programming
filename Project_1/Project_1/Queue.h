@@ -157,7 +157,10 @@ void printQueue(Queue<T> queue)
 	auto i = queue.begin();
 	int number = 1;
 	for (; i != queue.end(); i++, number++) {
-		std::cout << number << ": " << *i << std::endl;
+		std::cout << number << ": ";
+		T obj = *i;
+		obj->print(std::cout);
+		std::cout << std::endl;
 
 	}
 }

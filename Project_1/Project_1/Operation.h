@@ -1,8 +1,8 @@
 #pragma once
-#include <stdio.h>
 #include <iostream>
 #include <QString>
 #include "QueueItem.h"
+
 class Operation : public QueueItem
 {
 public:
@@ -24,6 +24,31 @@ public:
 	void setAction(const Action action);
 	void setDuration(const int duration);
 	bool operator==(const Operation operation) const;
+	virtual void print(std::ostream& out) const override;
+	friend std::ostream& operator<<(std::ostream& out, const Operation::Action  &value) {
+		switch (value)
+		{
+		case Operation::Action::NONE:
+			return out << "nothing";
+		case Operation::Action::CHOP:
+			return out << "chop";
+		case Operation::Action::PACK:
+			return out << "pack";
+		case Operation::Action::FRY:
+			return out << "fry";
+		case Operation::Action::PUT:
+			return out << "put";
+		case Operation::Action::BOIL:
+			return out << "boil";
+		default:
+			return out << "unknown";
+			break;
+		}
+	}
+	friend std::ostream& operator<<(std::ostream& out, const Operation  &value) {
+		value.print(out);
+		return out;
+	}
 	// Унаследовано через QueueItem
 	virtual QJsonObject serialize() override;
 private:

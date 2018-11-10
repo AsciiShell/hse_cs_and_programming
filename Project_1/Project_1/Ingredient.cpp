@@ -1,3 +1,5 @@
+// This is a personal academic project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "Ingredient.h"
 Ingredient::Ingredient()
 {
@@ -73,6 +75,11 @@ bool Ingredient::operator==(const Ingredient ingredient) const
 	return _name == ingredient._name && _measure == ingredient._measure && _count == ingredient._count;
 }
 
+void Ingredient::print(std::ostream & out) const
+{
+	out << _name.toStdString() << ": " << _count << " " << _measure;
+}
+
 QJsonObject Ingredient::serialize()
 {
 	QJsonObject jsonObject;
@@ -90,30 +97,4 @@ void Ingredient::deserialize(const QJsonObject object)
 	_count = object["count"].toInt();
 	if (_count < 0)
 		_count = 0;
-}
-
-std::ostream & operator<<(std::ostream & out, const Ingredient::Measure & value)
-{
-	switch (value)
-	{
-	case Ingredient::Measure::GRAM:
-		return out << "gramms";
-		break;
-	case Ingredient::Measure::MILLILITER:
-		return out << "milliliters";
-		break;
-	case Ingredient::Measure::PIECE:
-		return out << "pieces";
-		break;
-	default:
-		return out << "unknown";
-		break;
-	}
-
-}
-
-std::ostream & operator<<(std::ostream & out, const Ingredient & value)
-{
-	return out << value.getName().toStdString() << ": " << value.getCount() << " " << value.getMeasure();
-
 }
