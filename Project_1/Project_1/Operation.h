@@ -18,7 +18,7 @@ public:
 	Operation(const Action action, const int duration);
 	Operation(const Operation &operation);
 	Operation(const QJsonObject object);
-	~Operation();
+	virtual ~Operation();
 	Action getAction() const;
 	int getDuration() const;
 	void setAction(const Action action);
@@ -49,7 +49,6 @@ public:
 		value.print(out);
 		return out;
 	}
-	// Унаследовано через QueueItem
 	virtual QJsonObject serialize() override;
 private:
 	virtual void deserialize(const QJsonObject object) override;

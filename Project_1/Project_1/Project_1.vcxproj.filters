@@ -38,6 +38,9 @@
     <ClCompile Include="QueueItem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GC.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ingredient.h">
@@ -62,6 +65,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="itemFactory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GC.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

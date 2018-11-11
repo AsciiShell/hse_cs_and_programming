@@ -17,7 +17,7 @@ public:
 	Ingredient(const QString name, const Measure measure, const int count);
 	Ingredient(const QJsonObject json);
 	Ingredient(const Ingredient &ingredient);
-	~Ingredient();
+	virtual ~Ingredient();
 	const QString getName() const;
 	Measure getMeasure() const;
 	int getCount() const;
@@ -47,7 +47,6 @@ public:
 		value.print(out);
 		return out;
 	}
-	// Унаследовано через QueueItem
 	virtual QJsonObject serialize() override;
 private:
 	virtual void deserialize(const QJsonObject object) override;
