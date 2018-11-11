@@ -113,6 +113,10 @@
     </QtRcc>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Project_1\GC.cpp" />
+    <ClCompile Include="..\Project_1\Ingredient.cpp" />
+    <ClCompile Include="..\Project_1\Operation.cpp" />
+    <ClCompile Include="..\Project_1\QueueItem.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="QtGu_CookRobot.cpp" />
   </ItemGroup>
@@ -126,9 +130,12 @@
     <QtRcc Include="QtGu_CookRobot.qrc" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Project_1\Project_1.vcxproj">
-      <Project>{b12702ad-abfb-343a-a199-8e24837244a3}</Project>
-    </ProjectReference>
+    <ClInclude Include="..\Project_1\GC.h" />
+    <ClInclude Include="..\Project_1\Ingredient.h" />
+    <ClInclude Include="..\Project_1\itemFactory.h" />
+    <ClInclude Include="..\Project_1\Operation.h" />
+    <ClInclude Include="..\Project_1\Queue.h" />
+    <ClInclude Include="..\Project_1\QueueItem.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
