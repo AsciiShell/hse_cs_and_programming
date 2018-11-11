@@ -3,6 +3,7 @@
 #include <QJsonObject>
 #include <QJsonArray.h>
 #include <QJsonDocument>
+#include "itemFactory.h"
 
 template <class T>
 class Queue
@@ -113,12 +114,13 @@ public:
 		return _count;
 	}
 
-	void dump(const QString filepath) const
+	void dump(const QString& filepath) const
 	{
 		QJsonArray jsonArray;
 		for (auto i = _tail; i != nullptr; i = i->next)
 		{
-			jsonArray.append(i->obj.serialize());
+			T item = i-> obj;
+			jsonArray.append(item->serialize());
 		}
 		QJsonDocument jsonDoc(jsonArray);
 		QFile file(filepath);
@@ -126,14 +128,15 @@ public:
 		file.write(jsonDoc.toJson());
 		file.close();
 	}
-	static Queue load(const QString filepath)
+	static Queue load(const QString& filepath)
 	{
 		QFile file(filepath);
 		file.open(QIODevice::ReadOnly);
 		QJsonArray jsonArray = QJsonDocument::fromJson(file.readAll()).array();
 		Queue queue;
 		for (auto i = 0; i < jsonArray.count(); i++) {
-			queue.push(T(jsonArray.at(i).toObject()));
+			T item = itemFactory<T>(jsonArray.at(i).toObject());
+			queue.push(item);
 		}
 		return queue;
 	}
@@ -163,4 +166,5 @@ void printQueue(Queue<T> queue)
 		std::cout << std::endl;
 
 	}
+	std::cout << std::endl;
 }

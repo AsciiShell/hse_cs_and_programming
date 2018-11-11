@@ -24,7 +24,7 @@ public:
 	void setName(const QString name);
 	void setMeasure(const Measure measure);
 	void setCount(const int count);
-	bool operator==(const Ingredient ingredient) const;
+	bool operator==(const Ingredient& ingredient) const;
 	virtual void print(std::ostream& out) const override;
 	friend std::ostream& operator<<(std::ostream& out, const Ingredient::Measure  &value) {
 		switch (value)

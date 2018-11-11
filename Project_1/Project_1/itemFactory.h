@@ -3,7 +3,9 @@
 #include "Operation.h"
 #include "QueueItem.h"
 #include "QJsonObject.h"
-QueueItem* itemFactory(const QJsonObject &object) {
+
+template <class T>
+T itemFactory(const QJsonObject &object) {
 	QueueItem::ItemKind kind = static_cast<QueueItem::ItemKind>(object["kind"].toInt());
 	switch (kind)
 	{

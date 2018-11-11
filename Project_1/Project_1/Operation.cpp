@@ -53,7 +53,7 @@ void Operation::setDuration(const int duration)
 		_duration = duration;
 }
 
-bool Operation::operator==(const Operation operation) const
+bool Operation::operator==(const Operation& operation) const
 {
 	return _duration == operation._duration && _action == operation._action;
 }

@@ -23,7 +23,7 @@ public:
 	int getDuration() const;
 	void setAction(const Action action);
 	void setDuration(const int duration);
-	bool operator==(const Operation operation) const;
+	bool operator==(const Operation& operation) const;
 	virtual void print(std::ostream& out) const override;
 	friend std::ostream& operator<<(std::ostream& out, const Operation::Action  &value) {
 		switch (value)
