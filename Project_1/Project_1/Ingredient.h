@@ -14,18 +14,19 @@ public:
 	};
 
 	Ingredient();
-	Ingredient(const QString name, const Measure measure, const int count);
-	Ingredient(const QJsonObject json);
+	Ingredient(const QString& name, const Measure measure, const int count);
+	Ingredient(const QJsonObject& json);
 	Ingredient(const Ingredient &ingredient);
 	virtual ~Ingredient();
 	const QString getName() const;
 	Measure getMeasure() const;
 	int getCount() const;
-	void setName(const QString name);
+	void setName(const QString& name);
 	void setMeasure(const Measure measure);
 	void setCount(const int count);
 	bool operator==(const Ingredient& ingredient) const;
 	virtual void print(std::ostream& out) const override;
+	virtual QString toString() const override;
 	friend std::ostream& operator<<(std::ostream& out, const Ingredient::Measure  &value) {
 		switch (value)
 		{
@@ -49,10 +50,13 @@ public:
 	}
 	virtual QJsonObject serialize() override;
 private:
-	virtual void deserialize(const QJsonObject object) override;
+	virtual void deserialize(const QJsonObject& object) override;
 	QString _name;
 	Measure _measure;
 	int _count;
+
+
+
 
 
 };

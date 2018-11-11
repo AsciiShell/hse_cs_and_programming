@@ -23,7 +23,7 @@ Operation::Operation(const Operation & operation)
 	_kind = ITEM_OPERATION;
 }
 
-Operation::Operation(const QJsonObject object) {
+Operation::Operation(const QJsonObject& object) {
 	_kind = ITEM_OPERATION;
 	deserialize(object);
 }
@@ -72,10 +72,29 @@ QJsonObject Operation::serialize()
 	return jsonObject;
 }
 
-void Operation::deserialize(const QJsonObject object)
+void Operation::deserialize(const QJsonObject& object)
 {
 	_action = static_cast<Operation::Action>(object["action"].toInt());
 	_duration = object["duration"].toInt();
 	if (_duration < 0)
 		_duration = 0;
+}
+
+QString Operation::toString() const
+{
+	switch (_action)
+	{
+	case Operation::Action::CHOP:
+		return QString("chop for %1 seconds").arg(_duration);
+	case Operation::Action::PACK:
+		return QString("pack for %1 seconds").arg(_duration);
+	case Operation::Action::FRY:
+		return QString("fry for %1 seconds").arg(_duration);
+	case Operation::Action::PUT:
+		return QString("put for %1 seconds").arg(_duration);
+	case Operation::Action::BOIL:
+		return QString("boil for %1 seconds").arg(_duration);
+	default:
+		return QString("nothing for %1 seconds").arg(_duration);
+	}
 }

@@ -11,7 +11,6 @@ QueueItem::QueueItem()
 {
 }
 
-
 QueueItem::~QueueItem()
 {
 }

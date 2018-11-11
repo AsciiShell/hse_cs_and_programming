@@ -17,7 +17,7 @@ public:
 	Operation();
 	Operation(const Action action, const int duration);
 	Operation(const Operation &operation);
-	Operation(const QJsonObject object);
+	Operation(const QJsonObject& object);
 	virtual ~Operation();
 	Action getAction() const;
 	int getDuration() const;
@@ -51,8 +51,11 @@ public:
 	}
 	virtual QJsonObject serialize() override;
 private:
-	virtual void deserialize(const QJsonObject object) override;
+	virtual void deserialize(const QJsonObject& object) override;
 	Action _action;
 	int _duration;
+
+	// Унаследовано через QueueItem
+	virtual QString toString() const override;
 };
 

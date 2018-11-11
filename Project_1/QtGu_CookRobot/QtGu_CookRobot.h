@@ -13,6 +13,7 @@ class QtGu_CookRobot : public QMainWindow
 
 public:
 	QtGu_CookRobot(QWidget *parent = Q_NULLPTR);
+	void paintEvent(QPaintEvent *event);
 
 private:
 	Ui::QtGu_CookRobotClass ui;

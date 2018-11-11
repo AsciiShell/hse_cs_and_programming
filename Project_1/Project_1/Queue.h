@@ -40,7 +40,7 @@ public:
 			return _ptr == rhs._ptr;
 		}
 		bool operator!=(const Iterator& rhs) const {
-			return _ptr != rhs._ptr;
+			return !(_ptr == rhs._ptr);
 		}
 	private:
 		ListItem* _ptr;
@@ -107,6 +107,7 @@ public:
 			_tail = _tail->next;
 			delete old_tail;
 		}
+		_tail = _head = nullptr;
 		_count = 0;
 	}
 	int getCount() const
@@ -119,7 +120,7 @@ public:
 		QJsonArray jsonArray;
 		for (auto i = _tail; i != nullptr; i = i->next)
 		{
-			T item = i-> obj;
+			T item = i->obj;
 			jsonArray.append(item->serialize());
 		}
 		QJsonDocument jsonDoc(jsonArray);
@@ -128,17 +129,16 @@ public:
 		file.write(jsonDoc.toJson());
 		file.close();
 	}
-	static Queue load(const QString& filepath)
+	void load(const QString& filepath)
 	{
+		clear();
 		QFile file(filepath);
 		file.open(QIODevice::ReadOnly);
 		QJsonArray jsonArray = QJsonDocument::fromJson(file.readAll()).array();
-		Queue queue;
 		for (auto i = 0; i < jsonArray.count(); i++) {
 			T item = itemFactory<T>(jsonArray.at(i).toObject());
-			queue.push(item);
+			push(item);
 		}
-		return queue;
 	}
 
 	bool equal(const Queue &queue) const

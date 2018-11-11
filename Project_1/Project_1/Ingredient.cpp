@@ -9,9 +9,8 @@ Ingredient::Ingredient()
 	_kind = ITEM_INGREDIENT;
 }
 
-Ingredient::Ingredient(const QString name, const Measure measure, const int count)
+Ingredient::Ingredient(const QString& name, const Measure measure, const int count): _name(name)
 {
-	_name = name;
 	_measure = measure;
 	_kind = ITEM_INGREDIENT;
 	if (count > 0)
@@ -20,7 +19,7 @@ Ingredient::Ingredient(const QString name, const Measure measure, const int coun
 		_count = 0;
 }
 
-Ingredient::Ingredient(const QJsonObject json)
+Ingredient::Ingredient(const QJsonObject& json)
 {
 	_kind = ITEM_INGREDIENT;
 	deserialize(json);
@@ -53,7 +52,7 @@ int Ingredient::getCount() const
 	return _count;
 }
 
-void Ingredient::setName(const QString name)
+void Ingredient::setName(const QString& name)
 {
 	if (!name.isEmpty())
 		_name = name;
@@ -90,11 +89,32 @@ QJsonObject Ingredient::serialize()
 	return jsonObject;
 }
 
-void Ingredient::deserialize(const QJsonObject object)
+void Ingredient::deserialize(const QJsonObject& object)
 {
 	_name = object["name"].toString();
 	_measure = static_cast<Ingredient::Measure>(object["measure"].toInt());
 	_count = object["count"].toInt();
 	if (_count < 0)
 		_count = 0;
+}
+
+QString Ingredient::toString() const
+{
+	QString measure;
+	switch (_measure)
+	{
+	case Ingredient::Measure::GRAM:
+		measure = " gramms";
+		break;
+	case Ingredient::Measure::MILLILITER:
+		measure = " milliliters";
+		break;
+	case Ingredient::Measure::PIECE:
+		measure = " pieces";
+		break;
+	default:
+		measure = " unknown";
+		break;
+	}
+	return _name + " " + QString::number(_count) + " " + measure;
 }

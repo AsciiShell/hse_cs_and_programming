@@ -78,7 +78,8 @@ void testFile() {
 	Queue<QueueItem*> queue1 = generateQueue();
 	QString filename = "dump.json";
 	queue1.dump(filename);
-	Queue<QueueItem*> queue2 = Queue<QueueItem*>::load(filename);
+	Queue<QueueItem*> queue2 = Queue<QueueItem*>();
+	queue2.load(filename);
 	std::cout << "Queue before dumping" << std::endl;
 	printQueue(queue1);
 	std::cout << "Queue after dumping" << std::endl;
