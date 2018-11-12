@@ -93,7 +93,6 @@
     </QtMoc>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="GC.cpp" />
     <ClCompile Include="Ingredient.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Operation.cpp" />

@@ -36,9 +36,6 @@
     <ClCompile Include="QtGu_CookRobot.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Project_1\GC.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\Project_1\Ingredient.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

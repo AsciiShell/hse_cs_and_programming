@@ -38,9 +38,6 @@
     <ClCompile Include="QueueItem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GC.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ingredient.h">

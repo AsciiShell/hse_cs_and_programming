@@ -6,7 +6,7 @@
 #include "Queue.h"
 #include <assert.h>
 
-GC gc;
+GC<QueueItem> gc;
 
 Queue<QueueItem*> generateQueue() {
 	Queue<QueueItem*> queue;
