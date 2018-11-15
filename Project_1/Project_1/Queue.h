@@ -50,13 +50,14 @@ public:
 		_tail = _head = nullptr;
 		_count = 0;
 	}
-	Queue(const Queue &queue)
+	Queue(const Queue&queue)
 	{
-		_tail = _head = nullptr;
-		_count = 0;
-		for (auto i = queue._tail; i != nullptr; i = i->next) {
-			push(T(i->obj));
-		}
+		copy(queue);
+	}
+	Queue<T>& operator=(const Queue<T> &queue)
+	{
+		copy(queue);
+		return *this;
 	}
 	~Queue()
 	{
@@ -161,7 +162,13 @@ public:
 		return result;
 	}
 private:
-
+	void copy(const Queue&queue) {
+		_tail = _head = nullptr;
+		_count = 0;
+		for (auto i = queue._tail; i != nullptr; i = i->next) {
+			push(T(i->obj));
+		}
+	}
 	ListItem *_head, *_tail;
 	int _count;
 };

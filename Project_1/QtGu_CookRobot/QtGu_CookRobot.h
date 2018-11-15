@@ -30,7 +30,7 @@ public slots:
 	void on_pushButton_addOperation_clicked();
 	void on_item_clicked();
 	void on_pushButton_apply();
-
+	void on_pushButton_delete();
 private:
 	Ui::QtGu_CookRobotClass ui;
 	Queue<QueueItem*> _queue;

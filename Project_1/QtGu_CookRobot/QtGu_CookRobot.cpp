@@ -23,6 +23,8 @@ void QtGu_CookRobot::connects()
 {
 	connect(ui.pushButton_ingredientApply, SIGNAL(clicked()), this, SLOT(on_pushButton_apply()));
 	connect(ui.pushButton_operationApply, SIGNAL(clicked()), this, SLOT(on_pushButton_apply()));
+	connect(ui.pushButton_ingredientDelete, SIGNAL(clicked()), this, SLOT(on_pushButton_delete()));
+	connect(ui.pushButton_operationDelete, SIGNAL(clicked()), this, SLOT(on_pushButton_delete()));
 }
 
 
@@ -127,4 +129,21 @@ void QtGu_CookRobot::setOperationLayout(Operation* item)
 	_operation = item;
 	ui.lineEdit_operationDuration->setText(QString::number(_operation->getDuration()));
 	ui.comboBox_operationType->setCurrentIndex(_operation->getAction());
+}
+void QtGu_CookRobot::on_pushButton_delete()
+{
+	QueueItem* item;
+	if (_ingredient == nullptr)
+		item = (QueueItem*)_operation;
+	else
+		item = (QueueItem*)_ingredient;
+	Queue<QueueItem*> newQueue;
+	for (auto i = _queue.begin(); i != _queue.end(); i++)
+	{
+		if ((*i) != item)
+			newQueue.push(*i);
+	}
+	_queue.clear();
+	_queue = newQueue;
+	drawQueue();
 }
