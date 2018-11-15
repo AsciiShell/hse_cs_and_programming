@@ -37,5 +37,6 @@ private:
 	QList<QPushButton*> _queueItems;
 	Ingredient* _ingredient;
 	Operation* _operation;
+	QVBoxLayout *verticalLayout_queue;
 	void connects();
 };

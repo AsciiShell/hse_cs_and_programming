@@ -54,9 +54,4 @@ private:
 	QString _name;
 	Measure _measure;
 	int _count;
-
-
-
-
-
 };

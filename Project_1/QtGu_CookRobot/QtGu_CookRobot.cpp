@@ -6,18 +6,12 @@ QtGu_CookRobot::QtGu_CookRobot(QWidget *parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
-	
+	verticalLayout_queue = new QVBoxLayout(ui.groupBox_queue);
+	verticalLayout_queue->setSpacing(6);
+	verticalLayout_queue->setContentsMargins(0, 0, 0, 0);
 	_queue.load("dump.json");
 
-	_queueItems = QList<QPushButton*>();
-	for (int i = 0; i < 100; i++)
-	{
-		QPushButton *label = new QPushButton(ui.groupBox_queue);
-		label->setText("");
-		label->setGeometry(QRect(10, 23 * (i + 1), 180, 23));
-		_queueItems.push_back(label);
-		connect(label, SIGNAL(clicked()), this, SLOT(on_item_clicked()));
-	}
+
 	drawQueue();
 	QRegExp int_exp("[0-9]*");
 	ui.lineEdit_ingredientCount->setValidator(new QRegExpValidator(int_exp, this));
@@ -34,13 +28,25 @@ void QtGu_CookRobot::connects()
 
 void QtGu_CookRobot::drawQueue()
 {
+	setEmptyLayout();
+	for each (auto button in _queueItems)
+	{
+		delete button;
+	}
+	_queueItems.clear();
 	auto i = _queue.begin();
 	int number = 1;
 	for (; i != _queue.end(); i++, number++) {
-		_queueItems.at(number - 1)->setText(QString::number(number) + ": " + (*i)->toString());
+		QPushButton *label = new QPushButton(ui.groupBox_queue);
+		label->setText(QString::number(number) + ": " + (*i)->toString());
+		label->setGeometry(QRect(10, 29 * (number), 180, 23));
+		verticalLayout_queue->addWidget(label);
+		_queueItems.push_back(label);
+		connect(label, SIGNAL(clicked()), this, SLOT(on_item_clicked()));
 	}
-	ui.groupBox_queue->setFixedHeight(number * 23);
-	setEmptyLayout();
+
+	ui.groupBox_queue->setFixedHeight(number * 29);
+	resize(width(), number * 29 + 26);
 }
 
 void QtGu_CookRobot::on_pushButton_load_clicked() {
@@ -90,7 +96,7 @@ void QtGu_CookRobot::on_pushButton_apply()
 		_ingredient->setCount(ui.lineEdit_ingredientCount->text().toInt());
 		_ingredient->setMeasure(static_cast<Ingredient::Measure>(ui.comboBox_ingredientMeasure->currentIndex()));
 	}
-	else if(_operation)
+	else if (_operation)
 	{
 		_operation->setDuration(ui.lineEdit_operationDuration->text().toInt());
 		_operation->setAction(static_cast<Operation::Action>(ui.comboBox_operationType->currentIndex()));
