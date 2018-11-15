@@ -18,6 +18,9 @@ class QtGu_CookRobot : public QMainWindow
 public:
 	QtGu_CookRobot(QWidget *parent = Q_NULLPTR);
 	void drawQueue();
+	void setEmptyLayout();
+	void setIngredientLayout(Ingredient* item);
+	void setOperationLayout(Operation* item);
 
 public slots:
 	void on_pushButton_load_clicked();
@@ -26,9 +29,13 @@ public slots:
 	void on_pushButton_addIngredient_clicked();
 	void on_pushButton_addOperation_clicked();
 	void on_item_clicked();
+	void on_pushButton_apply();
+
 private:
 	Ui::QtGu_CookRobotClass ui;
 	Queue<QueueItem*> _queue;
-	QList<QPushButton*> _queueLabels;
+	QList<QPushButton*> _queueItems;
+	Ingredient* _ingredient;
+	Operation* _operation;
 	void connects();
 };

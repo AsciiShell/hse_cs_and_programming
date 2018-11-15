@@ -90,6 +90,18 @@ public:
 			throw std::exception("Queue is empty");
 	}
 
+	T at(int index) {
+		if (index >= _count)
+			throw std::exception("Index out of range");
+		int i = 0;
+		ListItem* ptr = _tail;
+		while (ptr != nullptr && i++ < index)
+		{
+			ptr = ptr->next;
+		}
+		return ptr->obj;
+	}
+
 	Iterator begin() const
 	{
 		return Iterator(_tail);

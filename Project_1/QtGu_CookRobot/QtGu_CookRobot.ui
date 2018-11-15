@@ -51,6 +51,12 @@
       <height>371</height>
      </rect>
     </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
     <property name="minimumSize">
      <size>
       <width>178</width>
@@ -168,6 +174,13 @@
         </property>
        </widget>
       </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_ingredientApply">
+        <property name="text">
+         <string>Применить</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
     <widget class="QGroupBox" name="groupBox_operation">
@@ -231,6 +244,13 @@
        <widget class="QLineEdit" name="lineEdit_operationDuration">
         <property name="placeholderText">
          <string>Длительность, с</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_operationApply">
+        <property name="text">
+         <string>Применить</string>
         </property>
        </widget>
       </item>

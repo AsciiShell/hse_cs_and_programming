@@ -6,17 +6,16 @@ QtGu_CookRobot::QtGu_CookRobot(QWidget *parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
-	ui.groupBox_ingredient->setVisible(false);
-	ui.groupBox_operation->setVisible(false);
+	
 	_queue.load("dump.json");
 
-	_queueLabels = QList<QPushButton*>();
+	_queueItems = QList<QPushButton*>();
 	for (int i = 0; i < 100; i++)
 	{
 		QPushButton *label = new QPushButton(ui.groupBox_queue);
 		label->setText("");
-		label->setGeometry(QRect(10, 20 * (i + 1), 180, 20));
-		_queueLabels.push_back(label);
+		label->setGeometry(QRect(10, 23 * (i + 1), 180, 23));
+		_queueItems.push_back(label);
 		connect(label, SIGNAL(clicked()), this, SLOT(on_item_clicked()));
 	}
 	drawQueue();
@@ -28,6 +27,8 @@ QtGu_CookRobot::QtGu_CookRobot(QWidget *parent)
 
 void QtGu_CookRobot::connects()
 {
+	connect(ui.pushButton_ingredientApply, SIGNAL(clicked()), this, SLOT(on_pushButton_apply()));
+	connect(ui.pushButton_operationApply, SIGNAL(clicked()), this, SLOT(on_pushButton_apply()));
 }
 
 
@@ -36,9 +37,10 @@ void QtGu_CookRobot::drawQueue()
 	auto i = _queue.begin();
 	int number = 1;
 	for (; i != _queue.end(); i++, number++) {
-		_queueLabels.at(number - 1)->setText(QString::number(number) + ": " + (*i)->toString());
+		_queueItems.at(number - 1)->setText(QString::number(number) + ": " + (*i)->toString());
 	}
-	ui.groupBox_queue->setFixedHeight(number * 20);
+	ui.groupBox_queue->setFixedHeight(number * 23);
+	setEmptyLayout();
 }
 
 void QtGu_CookRobot::on_pushButton_load_clicked() {
@@ -65,6 +67,58 @@ void QtGu_CookRobot::on_pushButton_addOperation_clicked() {
 	drawQueue();
 }
 void QtGu_CookRobot::on_item_clicked() {
-	QPushButton* i = static_cast<QPushButton*>(sender());
-	delete i;
+	QPushButton* senderObject = static_cast<QPushButton*>(sender());
+	int number = 0;
+	for each (auto it  in _queueItems)
+	{
+		if (it == senderObject)
+			break;
+		number++;
+	}
+	QueueItem* item = _queue.at(number);
+	if (item->getKind() == QueueItem::ITEM_INGREDIENT)
+		setIngredientLayout((Ingredient*)item);
+	else
+		setOperationLayout((Operation*)item);
+}
+
+void QtGu_CookRobot::on_pushButton_apply()
+{
+	if (_ingredient)
+	{
+		_ingredient->setName(ui.lineEdit_ingredientName->text());
+		_ingredient->setCount(ui.lineEdit_ingredientCount->text().toInt());
+		_ingredient->setMeasure(static_cast<Ingredient::Measure>(ui.comboBox_ingredientMeasure->currentIndex()));
+	}
+	else if(_operation)
+	{
+		_operation->setDuration(ui.lineEdit_operationDuration->text().toInt());
+		_operation->setAction(static_cast<Operation::Action>(ui.comboBox_operationType->currentIndex()));
+	}
+	drawQueue();
+}
+
+void QtGu_CookRobot::setEmptyLayout()
+{
+	ui.groupBox_ingredient->setVisible(false);
+	ui.groupBox_operation->setVisible(false);
+}
+void QtGu_CookRobot::setIngredientLayout(Ingredient* item)
+{
+	ui.groupBox_ingredient->setVisible(true);
+	ui.groupBox_operation->setVisible(false);
+	_ingredient = item;
+	_operation = nullptr;
+	ui.lineEdit_ingredientName->setText(_ingredient->getName());
+	ui.lineEdit_ingredientCount->setText(QString::number(_ingredient->getCount()));
+	ui.comboBox_ingredientMeasure->setCurrentIndex(_ingredient->getMeasure());
+}
+void QtGu_CookRobot::setOperationLayout(Operation* item)
+{
+	ui.groupBox_ingredient->setVisible(false);
+	ui.groupBox_operation->setVisible(true);
+	_ingredient = nullptr;
+	_operation = item;
+	ui.lineEdit_operationDuration->setText(QString::number(_operation->getDuration()));
+	ui.comboBox_operationType->setCurrentIndex(_operation->getAction());
 }
