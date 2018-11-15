@@ -163,8 +163,7 @@ public:
 	}
 private:
 	void copy(const Queue&queue) {
-		_tail = _head = nullptr;
-		_count = 0;
+		clear();
 		for (auto i = queue._tail; i != nullptr; i = i->next) {
 			push(T(i->obj));
 		}
