@@ -28,6 +28,7 @@ public slots:
 	void on_pushButton_clear_clicked();
 	void on_pushButton_addIngredient_clicked();
 	void on_pushButton_addOperation_clicked();
+	void on_pushButton_pop_clicked();
 	void on_item_clicked();
 	void on_pushButton_apply();
 	void on_pushButton_delete();
@@ -39,4 +40,5 @@ private:
 	Operation* _operation;
 	QVBoxLayout *verticalLayout_queue;
 	void connects();
+	void setControlLayout();
 };
