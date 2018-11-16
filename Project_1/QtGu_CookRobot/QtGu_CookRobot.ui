@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>QtGu_CookRobotClass</class>
+ <widget class="QMainWindow" name="QtGu_CookRobotClass">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>470</width>
+    <height>338</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>470</width>
+    <height>338</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>QtGu_CookRobot</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <widget class="QGroupBox" name="groupBox_queue">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>10</y>
+      <width>261</width>
+      <height>321</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>204</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="title">
+     <string>Очередь</string>
+    </property>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_controls">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>178</width>
+      <height>174</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>178</width>
+      <height>145</height>
+     </size>
+    </property>
+    <property name="title">
+     <string>Действия</string>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_3">
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QPushButton" name="pushButton_load">
+         <property name="minimumSize">
+          <size>
+           <width>75</width>
+           <height>23</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Загрузить</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_dump">
+         <property name="minimumSize">
+          <size>
+           <width>75</width>
+           <height>23</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Сохранить</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_clear">
+       <property name="text">
+        <string>Очистить</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_addIngredient">
+       <property name="text">
+        <string>Добавить ингредиент</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_addOperation">
+       <property name="text">
+        <string>Добавить операцию</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_pop">
+       <property name="text">
+        <string>Изъять элемент</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_ingredient">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>194</y>
+      <width>178</width>
+      <height>136</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>174</width>
+      <height>124</height>
+     </size>
+    </property>
+    <property name="title">
+     <string>Редактирование ингредиента</string>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_5">
+     <item>
+      <widget class="QLineEdit" name="lineEdit_ingredientName">
+       <property name="placeholderText">
+        <string>Имя</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="comboBox_ingredientMeasure">
+       <item>
+        <property name="text">
+         <string>Граммы</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Миллилитры</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Штуки</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="lineEdit_ingredientCount">
+       <property name="placeholderText">
+        <string>Количество</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <widget class="QPushButton" name="pushButton_ingredientDelete">
+         <property name="text">
+          <string>Удалить</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_ingredientApply">
+         <property name="text">
+          <string>Применить</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_operation">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>194</y>
+      <width>178</width>
+      <height>110</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>161</width>
+      <height>98</height>
+     </size>
+    </property>
+    <property name="title">
+     <string>Редактирование операции</string>
+    </property>
+    <property name="flat">
+     <bool>false</bool>
+    </property>
+    <property name="checkable">
+     <bool>false</bool>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_2">
+     <item>
+      <widget class="QComboBox" name="comboBox_operationType">
+       <item>
+        <property name="text">
+         <string>Ничего</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Нарубить</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Упаковать</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Жарить</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Положить</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Варить</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="lineEdit_operationDuration">
+       <property name="placeholderText">
+        <string>Длительность, с</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <item>
+        <widget class="QPushButton" name="pushButton_operationDelete">
+         <property name="text">
+          <string>Удалить</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_operationApply">
+         <property name="text">
+          <string>Применить</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources>
+  <include location="QtGu_CookRobot.qrc"/>
+ </resources>
+ <connections/>
+</ui>

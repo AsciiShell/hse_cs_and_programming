@@ -1,8 +1,9 @@
 #pragma once
-#include <stdio.h>
 #include <iostream>
 #include <QString>
-class Ingredient
+#include "QueueItem.h"
+
+class Ingredient : public QueueItem
 {
 public:
 	enum Measure
@@ -13,21 +14,44 @@ public:
 	};
 
 	Ingredient();
-	Ingredient(const QString name, const Measure measure, const int count);
+	Ingredient(const QString& name, const Measure measure, const int count);
+	Ingredient(const QJsonObject& json);
 	Ingredient(const Ingredient &ingredient);
-	~Ingredient();
+	virtual ~Ingredient();
 	const QString getName() const;
 	Measure getMeasure() const;
 	int getCount() const;
-	void setName(const QString name);
+	void setName(const QString& name);
 	void setMeasure(const Measure measure);
 	void setCount(const int count);
-	bool equal(const Ingredient ingredient) const;
+	bool operator==(const Ingredient& ingredient) const;
+	virtual void print(std::ostream& out) const override;
+	virtual QString toString() const override;
+	friend std::ostream& operator<<(std::ostream& out, const Ingredient::Measure  &value) {
+		switch (value)
+		{
+		case Ingredient::Measure::GRAM:
+			return out << "gramms";
+			break;
+		case Ingredient::Measure::MILLILITER:
+			return out << "milliliters";
+			break;
+		case Ingredient::Measure::PIECE:
+			return out << "pieces";
+			break;
+		default:
+			return out << "unknown";
+			break;
+		}
+	}
+	friend std::ostream& operator<<(std::ostream& out, const Ingredient  &value) {
+		value.print(out);
+		return out;
+	}
+	virtual QJsonObject serialize() override;
 private:
+	virtual void deserialize(const QJsonObject& object) override;
 	QString _name;
 	Measure _measure;
 	int _count;
 };
-
-std::ostream& operator<<(std::ostream& out, const Ingredient::Measure  &value);
-std::ostream& operator<<(std::ostream& out, const Ingredient  &value);

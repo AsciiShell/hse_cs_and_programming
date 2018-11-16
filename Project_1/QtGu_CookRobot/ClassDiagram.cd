@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Ingredient" Collapsed="true">
+    <Position X="3.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAJAAAAAAAAIAAAAAApQAAAAgAAABAQACEQAgEAAA=</HashCode>
+      <FileName>D:\Projects\CS and programming_2\Project_1\Project_1\Ingredient.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Operation" Collapsed="true">
+    <Position X="5.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAIAAAQBAAJQAAAAAAAAACQAEAgIAAAAA=</HashCode>
+      <FileName>D:\Projects\CS and programming_2\Project_1\Project_1\Operation.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QueueItem">
+    <Position X="5" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Enum Name="QueueItem::ItemKind" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>D:\Projects\CS and programming_2\Project_1\Project_1\QueueItem.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAQAIAAAAABAAAAAAAAAJAAAAABAAAAIQAAAAAAAAAA=</HashCode>
+      <FileName>D:\Projects\CS and programming_2\Project_1\Project_1\QueueItem.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Queue&lt;T&gt;">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <NestedTypes>
+      <Struct Name="Queue&lt;T&gt;::ListItem" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>D:\Projects\CS and programming_2\Project_1\Project_1\Queue.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+      <Class Name="Queue&lt;T&gt;::Iterator" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>D:\Projects\CS and programming_2\Project_1\Project_1\Queue.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AEAAAAACAKCQAACAAAAAAIAQQAAAAAIAgACoAAAFAAA=</HashCode>
+      <FileName>D:\Projects\CS and programming_2\Project_1\Project_1\Queue.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QtGu_CookRobot">
+    <Position X="8.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAQDAAAAAAFAAgEIBABABAAAAAIAkBAAAEEgAAAAQ=</HashCode>
+      <FileName>QtGu_CookRobot.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

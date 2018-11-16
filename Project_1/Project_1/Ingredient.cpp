@@ -1,26 +1,36 @@
+// This is a personal academic project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "Ingredient.h"
 Ingredient::Ingredient()
 {
 	_name = QString();
 	_measure = GRAM;
 	_count = 0;
+	_kind = ITEM_INGREDIENT;
 }
 
-Ingredient::Ingredient(const QString name, const Measure measure, const int count)
+Ingredient::Ingredient(const QString& name, const Measure measure, const int count): _name(name)
 {
-	_name = name;
 	_measure = measure;
+	_kind = ITEM_INGREDIENT;
 	if (count > 0)
 		_count = count;
 	else
 		_count = 0;
 }
 
+Ingredient::Ingredient(const QJsonObject& json)
+{
+	_kind = ITEM_INGREDIENT;
+	deserialize(json);
+}
+
 Ingredient::Ingredient(const Ingredient & ingredient)
 {
-	_name = ingredient.getName();
-	_measure = ingredient.getMeasure();
-	_count = ingredient.getCount();
+	_kind = ITEM_INGREDIENT;
+	_name = ingredient._name;
+	_measure = ingredient._measure;
+	_count = ingredient._count;
 }
 
 Ingredient::~Ingredient()
@@ -42,7 +52,7 @@ int Ingredient::getCount() const
 	return _count;
 }
 
-void Ingredient::setName(const QString name)
+void Ingredient::setName(const QString& name)
 {
 	if (!name.isEmpty())
 		_name = name;
@@ -59,33 +69,52 @@ void Ingredient::setCount(const int count)
 		_count = count;
 }
 
-bool Ingredient::equal(const Ingredient ingredient) const
+bool Ingredient::operator==(const Ingredient& ingredient) const
 {
 	return _name == ingredient._name && _measure == ingredient._measure && _count == ingredient._count;
 }
 
-std::ostream & operator<<(std::ostream & out, const Ingredient::Measure & value)
+void Ingredient::print(std::ostream & out) const
 {
-	switch (value)
-	{
-	case Ingredient::Measure::GRAM:
-		return out << "gramms";
-		break;
-	case Ingredient::Measure::MILLILITER:
-		return out << "milliliters";
-		break;
-	case Ingredient::Measure::PIECE:
-		return out << "pieces";
-		break;
-	default:
-		return out << "unknown";
-		break;
-	}
-
+	out << _name.toStdString() << ": " << _count << " " << _measure;
 }
 
-std::ostream & operator<<(std::ostream & out, const Ingredient & value)
+QJsonObject Ingredient::serialize()
 {
-	return out << value.getName().toStdString() << ": " << value.getCount() << " " << value.getMeasure();
+	QJsonObject jsonObject;
+	jsonObject["name"] = _name;
+	jsonObject["measure"] = _measure;
+	jsonObject["count"] = _count;
+	jsonObject["kind"] = ITEM_INGREDIENT;
+	return jsonObject;
+}
 
+void Ingredient::deserialize(const QJsonObject& object)
+{
+	_name = object["name"].toString();
+	_measure = static_cast<Ingredient::Measure>(object["measure"].toInt());
+	_count = object["count"].toInt();
+	if (_count < 0)
+		_count = 0;
+}
+
+QString Ingredient::toString() const
+{
+	QString measure;
+	switch (_measure)
+	{
+	case Ingredient::Measure::GRAM:
+		measure = " gramms";
+		break;
+	case Ingredient::Measure::MILLILITER:
+		measure = " milliliters";
+		break;
+	case Ingredient::Measure::PIECE:
+		measure = " pieces";
+		break;
+	default:
+		measure = " unknown";
+		break;
+	}
+	return _name + " " + QString::number(_count) + " " + measure;
 }
