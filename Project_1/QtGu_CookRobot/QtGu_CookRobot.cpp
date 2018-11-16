@@ -1,3 +1,5 @@
+// This is a personal academic project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "QtGu_CookRobot.h"
 
 QtGu_CookRobot::QtGu_CookRobot(QWidget *parent)
@@ -154,6 +156,11 @@ void QtGu_CookRobot::on_pushButton_delete()
 			newQueue.push(*i);
 	}
 	delete item;
+	while (newQueue.getCount() != 0 && (*(newQueue.begin()))->getKind() == QueueItem::ITEM_OPERATION)
+	{
+		auto item = newQueue.pop();
+		delete item;
+	}
 	_queue = newQueue;
 	drawQueue();
 }
