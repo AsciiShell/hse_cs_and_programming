@@ -17,3 +17,5 @@ T itemFactory(const QJsonObject &object) {
 		throw std::exception("Unknown QueueItem type.\n");
 	}
 }
+
+bool itemEqual(const QueueItem* a, const QueueItem* b);

@@ -10,6 +10,7 @@
 #include "../Project_1/Operation.h"
 #include "../Project_1/Queue.h"
 #include "../Project_1/QueueItem.h"
+#include "../Project_1/itemStuff.h"
 
 class QtGu_CookRobot : public QMainWindow
 {

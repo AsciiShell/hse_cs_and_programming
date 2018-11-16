@@ -3,7 +3,7 @@
 #include <QJsonObject>
 #include <QJsonArray.h>
 #include <QJsonDocument>
-#include "itemFactory.h"
+#include "itemStuff.h"
 
 template <class T>
 class Queue
@@ -52,6 +52,8 @@ public:
 	}
 	Queue(const Queue&queue)
 	{
+		_tail = _head = nullptr;
+		_count = 0;
 		copy(queue);
 	}
 	Queue<T>& operator=(const Queue<T> &queue)
@@ -158,7 +160,7 @@ public:
 	{
 		bool result = queue.getCount() == _count;
 		for (auto i = _tail, j = queue._tail; i != nullptr && j != nullptr && result; i = i->next, j = j->next)
-			result = i->obj == j->obj;
+			result = itemEqual(i->obj, j->obj);
 		return result;
 	}
 private:

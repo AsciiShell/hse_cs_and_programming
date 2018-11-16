@@ -5,7 +5,7 @@ class QueueItem
 {
 public:
 	enum ItemKind { ITEM_INGREDIENT, ITEM_OPERATION };
-	ItemKind getKind();
+	ItemKind getKind() const;
 	QueueItem();
 	virtual ~QueueItem();
 	virtual QJsonObject serialize() = 0;

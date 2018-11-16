@@ -38,6 +38,9 @@
     <ClCompile Include="QueueItem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="itemStuff.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ingredient.h">
@@ -61,10 +64,10 @@
     <ClInclude Include="QueueItem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="itemFactory.h">
+    <ClInclude Include="GC.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GC.h">
+    <ClInclude Include="itemStuff.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

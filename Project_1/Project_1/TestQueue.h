@@ -5,6 +5,7 @@
 #include "Operation.h"
 #include "Queue.h"
 #include <assert.h>
+#include "itemStuff.h"
 
 GC<QueueItem> gc;
 
@@ -80,11 +81,7 @@ void testFile() {
 	queue1.dump(filename);
 	Queue<QueueItem*> queue2 = Queue<QueueItem*>();
 	queue2.load(filename);
-	std::cout << "Queue before dumping" << std::endl;
-	printQueue(queue1);
-	std::cout << "Queue after dumping" << std::endl;
-	printQueue(queue2);
-	//assert(queue1.equal(queue2));
+	assert(queue1.equal(queue2));
 }
 
 void testAccess() {

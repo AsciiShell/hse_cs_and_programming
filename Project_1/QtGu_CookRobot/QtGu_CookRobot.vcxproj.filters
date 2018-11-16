@@ -45,6 +45,9 @@
     <ClCompile Include="..\Project_1\QueueItem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\Project_1\itemStuff.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="QtGu_CookRobot.h">
@@ -68,9 +71,6 @@
     <ClInclude Include="..\Project_1\Ingredient.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Project_1\itemFactory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\Project_1\Operation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -78,6 +78,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\Project_1\QueueItem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Project_1\itemStuff.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

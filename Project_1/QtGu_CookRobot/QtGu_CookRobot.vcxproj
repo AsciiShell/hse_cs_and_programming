@@ -114,6 +114,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Project_1\Ingredient.cpp" />
+    <ClCompile Include="..\Project_1\itemStuff.cpp" />
     <ClCompile Include="..\Project_1\Operation.cpp" />
     <ClCompile Include="..\Project_1\QueueItem.cpp" />
     <ClCompile Include="main.cpp" />
@@ -131,7 +132,7 @@
   <ItemGroup>
     <ClInclude Include="..\Project_1\GC.h" />
     <ClInclude Include="..\Project_1\Ingredient.h" />
-    <ClInclude Include="..\Project_1\itemFactory.h" />
+    <ClInclude Include="..\Project_1\itemStuff.h" />
     <ClInclude Include="..\Project_1\Operation.h" />
     <ClInclude Include="..\Project_1\Queue.h" />
     <ClInclude Include="..\Project_1\QueueItem.h" />
