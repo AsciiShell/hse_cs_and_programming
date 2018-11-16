@@ -1,5 +1,3 @@
-// This is a personal academic project. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "QtGu_CookRobot.h"
 
 QtGu_CookRobot::QtGu_CookRobot(QWidget *parent)
@@ -9,8 +7,7 @@ QtGu_CookRobot::QtGu_CookRobot(QWidget *parent)
 	verticalLayout_queue = new QVBoxLayout(ui.groupBox_queue);
 	verticalLayout_queue->setSpacing(6);
 	verticalLayout_queue->setContentsMargins(0, 0, 0, 0);
-	_queue.load("dump.json");
-
+	//_queue.load("dump.json");
 
 	drawQueue();
 	QRegExp int_exp("[0-9]*");
@@ -26,7 +23,6 @@ void QtGu_CookRobot::connects()
 	connect(ui.pushButton_ingredientDelete, SIGNAL(clicked()), this, SLOT(on_pushButton_delete()));
 	connect(ui.pushButton_operationDelete, SIGNAL(clicked()), this, SLOT(on_pushButton_delete()));
 }
-
 
 void QtGu_CookRobot::drawQueue()
 {
@@ -114,7 +110,7 @@ void QtGu_CookRobot::setControlLayout()
 {
 	ui.pushButton_pop->setEnabled(_queue.getCount() != 0);
 	ui.pushButton_clear->setEnabled(_queue.getCount() != 0);
-
+	ui.pushButton_addOperation->setEnabled(_queue.getCount() != 0);
 }
 
 void QtGu_CookRobot::setEmptyLayout()
@@ -164,7 +160,10 @@ void QtGu_CookRobot::on_pushButton_delete()
 
 void  QtGu_CookRobot::on_pushButton_pop_clicked()
 {
-	auto item = _queue.pop();
-	delete item;
+	do
+	{
+		auto item = _queue.pop();
+		delete item;
+	} while (_queue.getCount() != 0 && (*(_queue.begin()))->getKind() == QueueItem::ITEM_OPERATION);
 	drawQueue();
 }
