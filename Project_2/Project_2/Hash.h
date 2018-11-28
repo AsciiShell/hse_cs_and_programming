@@ -13,13 +13,9 @@ int hash(const T& obj)
 	return result;
 }
 
-int hash(const int& i) {
-	return ((i << 16) | (i >> 16)) ^ i;
-}
-
 int hash(const std::string& s) {
 	int result = BASE;
-	for (int i = 0; i < s.length(); i++)
+	for (size_t i = 0; i < s.length(); i++)
 		result = result * BASE + DELIMITER * s[i];
 	return result;
 }
