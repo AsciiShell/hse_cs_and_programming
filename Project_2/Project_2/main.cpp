@@ -1,10 +1,8 @@
-#include "Hash.h"
-#include "Counter.h"
+#include "TestCounter.h"
 int main(int argc, char *argv[])
 {
 
-	Counter<QString> c;
-	for (int i = 0; i < 100; i++)
-		c.addKey("qwe" + QString::number(i));
+	test();
+	printf("All tests passed successfully!\n");
 	return 0;
 }

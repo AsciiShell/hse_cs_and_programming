@@ -63,12 +63,10 @@ public:
 	}
 	void remove(const T&key) {
 		size_t index = 0;
-		if (findByKey(key, index)) {
+		if (findByKey(key, &index)) {
 			delete _table[index];
 			_count -= 1;
 		}
-		else
-			throw std::exception("Key not found");
 	}
 	void clear() {
 		for (size_t i = 0; i < _size; i++)
@@ -118,36 +116,40 @@ public:
 		return Iterator(nullptr);// TODO
 	}
 
-	bool operator==(const Counter<T>& counter)
+	bool operator==(const Counter<T>& counter) const
 	{
 		bool result = _count == counter._count;
 		for (size_t i = 0; i < _size && result; i++)
 			if (_table[i])
 			{
 				T key = _table[i]->key;
-				result = counter.isIn(key) && counter[key]->count == operator[key]->count;
+				result = counter.isIn(key) && counter[key] == _table[i]->count;
 			}
 		return result;
 	}
-	size_t operator[](const Counter<T>& counter)
+	bool operator!=(const Counter<T>& counter) const
+	{
+		return !operator==(counter);
+	}
+	size_t operator[](const T & key) const //-V302
 	{
 		size_t index = 0;
-		if (findByKey(key, index)) {
-			return _table[index].count;
+		if (findByKey(key, &index)) {
+			return _table[index]->count;
 		}
 		else
 			throw std::exception("Key not found");
 	}
-	Counter operator||(const Counter<T>& counter)
+	Counter operator||(const Counter<T>& counter) const
 	{
 		return Counter();// TODO
 	}
-	std::ostream& operator<<(std::ostream& out)
+	std::ostream& operator<<(std::ostream& out) const
 	{
-		out << "Number of elements: " << _count << std::endl;
+		out << "Number of elements: " << static_cast<__int64>(_count) << std::endl;
 		for (size_t i = 0; i < _size; i++)
 			if (_table[i])
-				out << "Key: " << _table[i]->key << "\tCount: " << _table[i]->count << std::endl;
+				out << "Key: " << _table[i]->key << "\tCount: " << static_cast<__int64>(_table[i]->count) << std::endl;
 		return out << "===================" << std::endl;
 	}
 	Counter operator>>(std::istream& in)
@@ -158,7 +160,7 @@ private:
 	Item** _table;
 	size_t _size;
 	size_t _count;
-	size_t getHash(const T & key)
+	size_t getHash(const T & key) const
 	{
 		return (size_t)hash(key) % _size;
 	}
@@ -180,14 +182,19 @@ private:
 					steps += 1;
 				}
 				if (steps == MAX_COLLISION_COUNT)
+				{
+					// Rollback
+					delete[] table;
+					_size = oldSize;
 					throw std::exception("Super collision error. Algo can't resolve collision");
+				}
 				else
 					table[index] = _table[i];
 			}
 		delete[] _table;
 		_table = table;
 	}
-	bool findByKey(const T & key, size_t * result)
+	bool findByKey(const T & key, size_t * result) const
 	{
 		size_t index = getHash(key);
 		size_t steps = 0;
