@@ -80,13 +80,29 @@ void testCopyConstructor() {
 	assert(c1 != c2);
 }
 void testLeft() {
-	// TODO
+	Counter<int> c;
+	c.addKey(BASE_ITEM);
+	c.addKey(BASE_ITEM + 1);
+	c.addKey(BASE_ITEM + 2);
+	c.addKey(BASE_ITEM + 3);
+	std::cout << c;
 }
 void testRight() {
-	// TODO
+	std::cout << "Enter the number of items, then one item per line"
+		<< std::endl;
+	Counter<int> c;
+	std::cin >> c;
+	std::cout << "Result" << std::endl;
+	std::cout << c;
 }
 void testIterator() {
-	// TODO
+	Counter<int> c;
+	for (int i = -9; i < 10; i++)
+		c.addKey(i);
+	std::cout << std::endl << "Start Iterator" << std::endl;
+	for (auto i = c.begin(); i != c.end(); i++)
+		std::cout << i.getItem();
+	std::cout << "End Iterator" << std::endl;
 }
 void test() {
 	testConstructorDefault();

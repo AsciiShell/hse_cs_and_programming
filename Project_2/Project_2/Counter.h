@@ -16,12 +16,18 @@ public:
 		Item(const T & k)
 		{
 			key = k;
-			count = 0;
+			count = 1;
 		}
 		Item(const T & k, const size_t & c)
 		{
 			key = k;
 			count = c;
+		}
+		friend std::ostream& operator<<(std::ostream& out, const Item & item)
+		{
+			return	out << "Key: "
+				<< item.key << "\tCount: "
+				<< static_cast<__int64>(item.count) << std::endl;
 		}
 	};
 	Counter() {
@@ -32,17 +38,22 @@ public:
 		_count = 0;
 	}
 	Counter(const Counter<T> & collection) {
-		// TODO
-		_size = 0;
+		_size = collection._count * GROW_RATE;
 		_count = 0;
-		_table = nullptr;
+		_table = new Item*[_size];
+		for (size_t i = 0; i < _size; i++)
+			_table[i] = nullptr;
+		for (size_t i = 0; i < collection._size; i++)
+			if (collection._table[i])
+				addKey(collection._table[i]->key, collection._table[i]->count);
 	}
-	void addKey(const T&key) {
+	void addKey(const T&key, const size_t & count = 1) {
 		size_t index, steps;
 		do {
 			index = getHash(key);
 			steps = 0;
-			while (!(_table[index] == nullptr || _table[index]->key == key) && steps < MAX_COLLISION_COUNT)
+			while (!(_table[index] == nullptr || _table[index]->key == key)
+				&& steps < MAX_COLLISION_COUNT)
 			{
 				index = (index + 1) % _size;
 				steps += 1;
@@ -51,12 +62,11 @@ public:
 				grow();
 		} while (steps == MAX_COLLISION_COUNT);
 		if (_table[index] == nullptr) {
-			_table[index] = new Item(key);
+			_table[index] = new Item(key, count);
 			_count += 1;
 		}
 		else
-			_table[index]->count += 1;
-
+			_table[index]->count += count;
 	}
 	bool isIn(const T&key) const {
 		return findByKey(key, nullptr);
@@ -65,12 +75,16 @@ public:
 		size_t index = 0;
 		if (findByKey(key, &index)) {
 			delete _table[index];
+			_table[index] = nullptr;
 			_count -= 1;
 		}
 	}
 	void clear() {
 		for (size_t i = 0; i < _size; i++)
+		{
 			delete _table[i];
+			_table[i] = nullptr;
+		}
 		_count = 0;
 	}
 	size_t getCount() const {
@@ -78,42 +92,53 @@ public:
 	}
 	class Iterator {
 	public:
-		// TODO
-		Iterator(Item* ptr) {
-			_ptr = ptr;
+		Iterator(size_t start, size_t end, Item** table) {
+			_start = start;
+			_end = end;
+			_table = table;
+			while (_table[_start] == nullptr && (_start != _end))
+				_start++;
 		}
 		~Iterator() {}
 		Iterator operator++(int) {
 			Iterator i = *this;
-			_ptr = _ptr->next;
+			do {
+				_start++;
+			} while (_table[_start] == nullptr && (_start != _end));
 			return i;
 		}
 		Iterator& operator++() {
-			_ptr = _ptr->next;
+			do {
+				_start++;
+			} while (_table[_start] == nullptr && (_start != _end));
 			return *this;
 		}
-		int getValue() {
-			return 0;
+		size_t getValue() {
+			return _table[_start]->count;
 		}
 		T getKey() {
-			return NULL;
+			return _table[_start]->key;
+		}
+		Item& getItem() {
+			return *(_table[_start]);
 		}
 		bool operator==(const Iterator& rhs) const {
-			return _ptr == rhs._ptr;
+			return _start == rhs._start && _end == rhs._end;
 		}
 		bool operator!=(const Iterator& rhs) const {
-			return !(_ptr == rhs._ptr);
+			return !operator==(rhs);
 		}
 	private:
-		Item* _ptr;
+		size_t _start, _end;
+		Item** _table;
 	};
 	Iterator begin() const
 	{
-		return Iterator();// TODO
+		return Iterator(0, _size - 1, _table);
 	}
 	Iterator end() const
 	{
-		return Iterator(nullptr);// TODO
+		return Iterator(_size - 1, _size - 1, _table);
 	}
 
 	bool operator==(const Counter<T>& counter) const
@@ -142,19 +167,34 @@ public:
 	}
 	Counter operator||(const Counter<T>& counter) const
 	{
-		return Counter();// TODO
+		Counter result(counter);
+		for (auto i = begin(); i != end(); ++i)
+			result.addKey(i.getKey(), i.getValue());
+		return result;
 	}
-	std::ostream& operator<<(std::ostream& out) const
+	friend std::ostream& operator<<(std::ostream& out,
+		const Counter<T>& counter)
 	{
-		out << "Number of elements: " << static_cast<__int64>(_count) << std::endl;
-		for (size_t i = 0; i < _size; i++)
-			if (_table[i])
-				out << "Key: " << _table[i]->key << "\tCount: " << static_cast<__int64>(_table[i]->count) << std::endl;
+		out << "Number of elements: "
+			<< static_cast<__int64>(counter._count)
+			<< std::endl;
+		for (size_t i = 0; i < counter._size; i++)
+			if (counter._table[i])
+				out << *(counter._table[i]);
 		return out << "===================" << std::endl;
 	}
-	Counter operator>>(std::istream& in)
+	friend Counter operator>>(std::istream& in,
+		Counter<T>& counter)
 	{
-		return Counter();// TODO
+		size_t count;
+		in >> count;
+		for (size_t i = 0; i < count; i++) {
+			T key;
+			size_t value;
+			in >> key >> value;
+			counter.addKey(key, value);
+		}
+		return counter;
 	}
 private:
 	Item** _table;
@@ -186,7 +226,8 @@ private:
 					// Rollback
 					delete[] table;
 					_size = oldSize;
-					throw std::exception("Super collision error. Algo can't resolve collision");
+					throw std::exception("Super collision error. \
+Algo can't resolve collision");
 				}
 				else
 					table[index] = _table[i];
@@ -198,7 +239,8 @@ private:
 	{
 		size_t index = getHash(key);
 		size_t steps = 0;
-		while ((_table[index] == nullptr || _table[index]->key != key) && steps < MAX_COLLISION_COUNT)
+		while ((_table[index] == nullptr || _table[index]->key != key)
+			&& steps < MAX_COLLISION_COUNT)
 		{
 			index = (index + 1) % _size;
 			steps += 1;
@@ -208,3 +250,4 @@ private:
 		return steps != MAX_COLLISION_COUNT;
 	}
 };
+
