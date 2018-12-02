@@ -1,7 +1,9 @@
 #pragma once
 #include <assert.h>
+#include <fstream>
 #include "Counter.h"
 const int BASE_ITEM = 10;
+const std::string FILENAME = "test.txt";
 
 void testConstructorDefault() {
 	Counter<int> c;
@@ -79,30 +81,43 @@ void testCopyConstructor() {
 	c2.addKey(BASE_ITEM + 3);
 	assert(c1 != c2);
 }
-void testLeft() {
-	Counter<int> c;
-	c.addKey(BASE_ITEM);
-	c.addKey(BASE_ITEM + 1);
-	c.addKey(BASE_ITEM + 2);
-	c.addKey(BASE_ITEM + 3);
-	std::cout << c;
-}
-void testRight() {
-	std::cout << "Enter the number of items, then one item per line"
-		<< std::endl;
-	Counter<int> c;
-	std::cin >> c;
-	std::cout << "Result" << std::endl;
-	std::cout << c;
+void testFile() {
+	Counter<int> c1, c2;
+	c1.addKey(BASE_ITEM);
+	c1.addKey(BASE_ITEM + 1);
+	c1.addKey(BASE_ITEM + 2);
+	c1.addKey(BASE_ITEM + 3);
+
+	std::ofstream ofile;
+	ofile.open(FILENAME);
+	ofile << c1;
+	ofile.close();
+
+	std::ifstream ifile;
+	ifile.open(FILENAME);
+	ifile >> c2;
+	ifile.close();
+
+	assert(c1 == c2);
 }
 void testIterator() {
 	Counter<int> c;
-	for (int i = -9; i < 10; i++)
-		c.addKey(i);
+	for (int i = 0; i < 1000; i++)
+		c.addKey(rand() % 10, rand() % 5);
 	std::cout << std::endl << "Start Iterator" << std::endl;
 	for (auto i = c.begin(); i != c.end(); i++)
-		std::cout << i.getItem();
-	std::cout << "End Iterator" << std::endl;
+		std::cout << i.getKey() << ": \t" << i.getValue() << std::endl;
+	std::cout << "End Iterator" << std::endl << "TOP 5" << std::endl;
+	std::cout << c.getTopN(5);
+}
+void testMemoryLeak() {
+	for (size_t i = 0; i < 10000; i++)
+	{
+		Counter<int> c;
+		for (int i = 0; i < 1000; i++)
+			c.addKey(rand() % 10, rand() % 5);
+	}
+	// Look into profiler
 }
 void test() {
 	testConstructorDefault();
@@ -115,7 +130,7 @@ void test() {
 	testDifferentMerge();
 	testEqualtMerge();
 	testCopyConstructor();
-	testLeft();
-	testRight();
+	testFile();
 	testIterator();
+	testMemoryLeak();
 }

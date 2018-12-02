@@ -40,5 +40,11 @@
     <ClInclude Include="TestCounter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Queue.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

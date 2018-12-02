@@ -1,6 +1,8 @@
 #pragma once
 #include <iostream>
 #include "Hash.h"
+#include "Item.h"
+#include "Queue.h"
 template <class T>
 class Counter
 {
@@ -10,29 +12,10 @@ private:
 	static const size_t MAX_COLLISION_COUNT = 3;
 
 public:
-	struct Item {
-		T key;
-		size_t count;
-		Item(const T & k)
-		{
-			key = k;
-			count = 1;
-		}
-		Item(const T & k, const size_t & c)
-		{
-			key = k;
-			count = c;
-		}
-		friend std::ostream& operator<<(std::ostream& out, const Item & item)
-		{
-			return	out << "Key: "
-				<< item.key << "\tCount: "
-				<< static_cast<__int64>(item.count) << std::endl;
-		}
-	};
+
 	Counter() {
 		_size = DEFAULT_SIZE;
-		_table = new Item*[_size];
+		_table = new Item<T>*[_size];
 		for (size_t i = 0; i < _size; i++)
 			_table[i] = nullptr;
 		_count = 0;
@@ -40,12 +23,16 @@ public:
 	Counter(const Counter<T> & collection) {
 		_size = collection._count * GROW_RATE;
 		_count = 0;
-		_table = new Item*[_size];
+		_table = new Item<T>*[_size];
 		for (size_t i = 0; i < _size; i++)
 			_table[i] = nullptr;
 		for (size_t i = 0; i < collection._size; i++)
 			if (collection._table[i])
 				addKey(collection._table[i]->key, collection._table[i]->count);
+	}
+	~Counter() {
+		clear();
+		delete[] _table;
 	}
 	void addKey(const T&key, const size_t & count = 1) {
 		size_t index, steps;
@@ -62,7 +49,7 @@ public:
 				grow();
 		} while (steps == MAX_COLLISION_COUNT);
 		if (_table[index] == nullptr) {
-			_table[index] = new Item(key, count);
+			_table[index] = new Item<T>(key, count);
 			_count += 1;
 		}
 		else
@@ -92,7 +79,7 @@ public:
 	}
 	class Iterator {
 	public:
-		Iterator(size_t start, size_t end, Item** table) {
+		Iterator(size_t start, size_t end, Item<T>** table) {
 			_start = start;
 			_end = end;
 			_table = table;
@@ -113,13 +100,15 @@ public:
 			} while (_table[_start] == nullptr && (_start != _end));
 			return *this;
 		}
-		size_t getValue() {
+		size_t getValue() const
+		{
 			return _table[_start]->count;
 		}
-		T getKey() {
+		T getKey() const
+		{
 			return _table[_start]->key;
 		}
-		Item& getItem() {
+		Item<T>& getItem() const {
 			return *(_table[_start]);
 		}
 		bool operator==(const Iterator& rhs) const {
@@ -130,7 +119,7 @@ public:
 		}
 	private:
 		size_t _start, _end;
-		Item** _table;
+		Item<T>** _table;
 	};
 	Iterator begin() const
 	{
@@ -172,32 +161,50 @@ public:
 			result.addKey(i.getKey(), i.getValue());
 		return result;
 	}
-	friend std::ostream& operator<<(std::ostream& out,
+	Queue<Item<T>> getTopN(const size_t & n) {
+		Item<T>** arr = new Item<T>*[_count];
+		Item<T> *swap;
+		size_t arrayI = 0;
+		for (auto i = begin(); i != end(); ++i)
+			arr[arrayI++] = &(i.getItem());
+		for (size_t i = 0; i < n && i < _count; i++)
+			for (size_t j = i + 1; j < _count; j++)
+				if (arr[j]->count > arr[i]->count) {
+					swap = arr[j];
+					arr[j] = arr[i];
+					arr[i] = swap;
+				}
+		Queue<Item<T>> result;
+		for (size_t i = 0; i < n; i++)
+			result.push(*arr[i]);
+		delete[] arr;
+		return result;
+	}
+	friend std::ofstream& operator<<(std::ofstream& out,
 		const Counter<T>& counter)
 	{
-		out << "Number of elements: "
-			<< static_cast<__int64>(counter._count)
+		out << static_cast<__int64>(counter._count)
 			<< std::endl;
 		for (size_t i = 0; i < counter._size; i++)
 			if (counter._table[i])
 				out << *(counter._table[i]);
-		return out << "===================" << std::endl;
+		return out;
 	}
-	friend Counter operator>>(std::istream& in,
+	friend Counter operator>>(std::ifstream& in,
 		Counter<T>& counter)
 	{
 		size_t count;
-		in >> count;
+		in >> count; //-V128
 		for (size_t i = 0; i < count; i++) {
 			T key;
 			size_t value;
-			in >> key >> value;
+			in >> key >> value; //-V128
 			counter.addKey(key, value);
 		}
 		return counter;
 	}
 private:
-	Item** _table;
+	Item<T>** _table;
 	size_t _size;
 	size_t _count;
 	size_t getHash(const T & key) const
@@ -208,7 +215,7 @@ private:
 	{
 		size_t oldSize = _size;
 		_size *= GROW_RATE;
-		Item** table = new Item*[_size];
+		Item<T>** table = new Item<T>*[_size];
 		for (size_t i = 0; i < _size; i++)
 			table[i] = nullptr;
 		for (size_t i = 0; i < oldSize; i++)

@@ -98,6 +98,8 @@
   <ItemGroup>
     <ClInclude Include="Counter.h" />
     <ClInclude Include="Hash.h" />
+    <ClInclude Include="Item.h" />
+    <ClInclude Include="Queue.h" />
     <ClInclude Include="TestCounter.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
