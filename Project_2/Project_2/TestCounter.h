@@ -99,6 +99,8 @@ void testFile() {
 	ifile.close();
 
 	assert(c1 == c2);
+	c2.addKey(BASE_ITEM + 3);
+	assert(c1 != c2);
 }
 void testIterator() {
 	Counter<int> c;

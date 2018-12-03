@@ -161,7 +161,8 @@ public:
 			result.addKey(i.getKey(), i.getValue());
 		return result;
 	}
-	Queue<Item<T>> getTopN(const size_t & n) {
+	Queue<Item<T>> getTopN(const size_t & n) const
+	{
 		Item<T>** arr = new Item<T>*[_count];
 		Item<T> *swap;
 		size_t arrayI = 0;
