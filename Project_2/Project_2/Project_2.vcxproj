@@ -97,6 +97,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Counter.h" />
+    <ClInclude Include="CustomQStream.h" />
     <ClInclude Include="Hash.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Queue.h" />

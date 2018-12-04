@@ -1,5 +1,5 @@
 #pragma once
-#include <iostream>
+#include "CustomQStream.h"
 #include "Hash.h"
 #include "Item.h"
 #include "Queue.h"
@@ -108,11 +108,11 @@ public:
 		{
 			return _table[_start]->key;
 		}
-		Item<T>& getItem() const {
+		const Item<T>& getItem() const {
 			return *(_table[_start]);
 		}
 		bool operator==(const Iterator& rhs) const {
-			return _start == rhs._start && _end == rhs._end;
+			return _start == rhs._start && _end == rhs._end && _table == rhs._table;
 		}
 		bool operator!=(const Iterator& rhs) const {
 			return !operator==(rhs);
@@ -123,11 +123,11 @@ public:
 	};
 	Iterator begin() const
 	{
-		return Iterator(0, _size - 1, _table);
+		return Iterator(0, _size, _table);
 	}
 	Iterator end() const
 	{
-		return Iterator(_size - 1, _size - 1, _table);
+		return Iterator(_size, _size, _table);
 	}
 
 	bool operator==(const Counter<T>& counter) const
@@ -167,7 +167,7 @@ public:
 		Item<T> *swap;
 		size_t arrayI = 0;
 		for (auto i = begin(); i != end(); ++i)
-			arr[arrayI++] = &(i.getItem());
+			arr[arrayI++] = const_cast<Item<T>*>(&(i.getItem()));
 		for (size_t i = 0; i < n && i < _count; i++)
 			for (size_t j = i + 1; j < _count; j++)
 				if (arr[j]->count > arr[i]->count) {
@@ -191,7 +191,7 @@ public:
 				out << *(counter._table[i]);
 		return out;
 	}
-	friend Counter operator>>(std::ifstream& in,
+	friend std::ifstream& operator>>(std::ifstream& in,
 		Counter<T>& counter)
 	{
 		size_t count;
@@ -202,7 +202,7 @@ public:
 			in >> key >> value; //-V128
 			counter.addKey(key, value);
 		}
-		return counter;
+		return in;
 	}
 private:
 	Item<T>** _table;
