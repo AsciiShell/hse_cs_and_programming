@@ -10,7 +10,7 @@ std::ostream& operator<<(std::ostream& out, const QString & str)
 std::istream& operator>>(std::istream& in, QString & str)
 {
 	std::string s;
-	in >> s;
+	std::getline(in, s);
 	str = QString::fromStdString(s);
 	return in;
 }

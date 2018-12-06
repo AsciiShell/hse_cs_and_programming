@@ -176,12 +176,12 @@ public:
 					arr[i] = swap;
 				}
 		Queue<Item<T>> result;
-		for (size_t i = 0; i < n; i++)
+		for (size_t i = 0; i < n && i < _count; i++)
 			result.push(*arr[i]);
 		delete[] arr;
 		return result;
 	}
-	friend std::ofstream& operator<<(std::ofstream& out,
+	friend std::ostream& operator<<(std::ofstream& out,
 		const Counter<T>& counter)
 	{
 		out << static_cast<__int64>(counter._count)
@@ -191,15 +191,18 @@ public:
 				out << *(counter._table[i]);
 		return out;
 	}
-	friend std::ifstream& operator>>(std::ifstream& in,
+	friend std::istream& operator>>(std::ifstream& in,
 		Counter<T>& counter)
 	{
+		char c;
 		size_t count;
 		in >> count; //-V128
+		while (in.get(c) && c != '\n');
 		for (size_t i = 0; i < count; i++) {
 			T key;
 			size_t value;
 			in >> key >> value; //-V128
+			while (in.get(c) && c != '\n');
 			counter.addKey(key, value);
 		}
 		return in;

@@ -86,7 +86,7 @@ void testFile() {
 	c1.addKey(BASE_ITEM);
 	c1.addKey(BASE_ITEM + "1");
 	c1.addKey(BASE_ITEM + "2");
-	c1.addKey(BASE_ITEM + "3");
+	c1.addKey("Mohammad bin Salman");
 
 	std::ofstream ofile;
 	ofile.open(FILENAME);
@@ -113,12 +113,23 @@ void testIterator() {
 	std::cout << c.getTopN(5);
 }
 void testMemoryLeak() {
-	for (size_t i = 0; i < 10000; i++)
+	for (size_t i = 0; i < 5; i++)
+	{
+		Counter<QString> c;
+		for (int i = 0; i < 100000; i++)
+			c.addKey(BASE_ITEM + QString::number(rand()), rand() % 5);
+		for (int i = 0; i < 100000; i++)
+			c.remove(BASE_ITEM + QString::number(rand()));
+	}
+	for (size_t i = 0; i < 500; i++)
 	{
 		Counter<QString> c;
 		for (int i = 0; i < 1000; i++)
 			c.addKey(BASE_ITEM + QString::number(rand() % 10), rand() % 5);
+		for (int i = 0; i < 1000; i++)
+			c.remove(BASE_ITEM + QString::number(rand() % 10));
 	}
+
 	// Look into profiler
 }
 void test() {
