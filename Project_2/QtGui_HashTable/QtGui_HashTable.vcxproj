@@ -113,6 +113,8 @@
     </QtRcc>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Project_2\CustomQStream.cpp" />
+    <ClCompile Include="..\Project_2\Hash.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="QtGui_HashTable.cpp" />
   </ItemGroup>
