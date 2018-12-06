@@ -8,13 +8,8 @@ QtGui_HashTable::QtGui_HashTable(QWidget *parent)
 	ui.setupUi(this);
 	QRegExp int_exp("[0-9]*");
 	ui.lineEdit_addItem_value->setValidator(new QRegExpValidator(int_exp, this));
-	ui.lineEdit_editItem_value->setValidator(new QRegExpValidator(int_exp, this));
 	ui.lineEdit_getTop->setValidator(new QRegExpValidator(int_exp, this));
-	connect(ui.tableView, SIGNAL(clicked(const QModelIndex &)), this, SLOT(onTableClicked(const QModelIndex &)));
-	_counter.addKey("Ivanov");
-	_counter.addKey("������");
-
-
+	connect(ui.tableView, SIGNAL(clicked(const QModelIndex &)), this, SLOT(on_table_clicked(const QModelIndex &)));
 	drawTable();
 }
 
@@ -38,14 +33,49 @@ void QtGui_HashTable::drawTable()
 	ui.tableView->setModel(model);
 	ui.tableView->resizeRowsToContents();
 	ui.tableView->resizeColumnsToContents();
+	setEditLayout(false);
+	setResetLayout(false);
+	ui.label_editItem_key->setText("");
+}
+void QtGui_HashTable::drawTopN(size_t n)
+{
+	QStandardItemModel *model = new QStandardItemModel;
+	QStandardItem *item;
+	QStringList horizontalHeader;
+	horizontalHeader.append("Key");
+	horizontalHeader.append("Value");
+
+
+	model->setHorizontalHeaderLabels(horizontalHeader);
+	auto result = _counter.getTopN(n);
+	int index = 0;
+	for (auto i = result.begin(); i != result.end(); ++i, index++)
+	{
+		model->setItem(index, 0, new QStandardItem((*i).key));
+		model->setItem(index, 1, new QStandardItem(QString::number((*i).count)));
+	}
+
+	ui.tableView->setModel(model);
+	ui.tableView->resizeRowsToContents();
+	ui.tableView->resizeColumnsToContents();
+	setEditLayout(false);
+	setResetLayout(true);
+	ui.label_editItem_key->setText("");
 }
 void QtGui_HashTable::setEditLayout(bool display)
 {
-	ui.verticalLayout_editItem->setEnabled(display);
+	ui.pushButton_editItem_remove->setEnabled(display);
+}
+void QtGui_HashTable::setResetLayout(bool display)
+{
+	ui.pushButton_reset->setEnabled(display);
 }
 void QtGui_HashTable::on_pushButton_addItem_clicked()
 {
-	_counter.addKey(ui.lineEdit_addItem_key->text(), ui.lineEdit_addItem_value->text().toInt());
+	size_t count = 1;
+	if (!ui.lineEdit_addItem_value->text().isEmpty())
+		count = ui.lineEdit_addItem_value->text().toInt();
+	_counter.addKey(ui.lineEdit_addItem_key->text(), count);
 	drawTable();
 }
 void QtGui_HashTable::on_pushButton_findKey_clicked()
@@ -65,16 +95,38 @@ void QtGui_HashTable::on_pushButton_clear_clicked()
 }
 void QtGui_HashTable::on_pushButton_getTop_clicked()
 {
+	drawTopN(ui.lineEdit_getTop->text().toInt());
 }
-void QtGui_HashTable::on_pushButton_editItem_save_clicked()
-{
-}
+
 void QtGui_HashTable::on_pushButton_editItem_remove_clicked()
 {
+	_counter.remove(ui.label_editItem_key->text());
+	drawTable();
+}
+void QtGui_HashTable::on_pushButton_reset_clicked()
+{
+	drawTable();
+}
+void QtGui_HashTable::on_pushButton_load_clicked()
+{
+	std::ifstream ifile;
+	ifile.open(QFileDialog::getOpenFileName(this, "Open File", "", "Text (*.txt)").toStdString());
+	_counter.clear();
+	ifile >> _counter;
+	ifile.close();
+	drawTable();
+}
+void QtGui_HashTable::on_pushButton_save_clicked()
+{
+	std::ofstream ofile;
+	ofile.open(QFileDialog::getSaveFileName(this, "Open File", "", "Text (*.txt)").toStdString());
+	ofile << _counter;
+	ofile.close();
 }
 void QtGui_HashTable::on_table_clicked(const QModelIndex &index)
 {
 	if (index.isValid()) {
-		QString cellText = index.data().toString();
+		setEditLayout(true);
+		ui.label_editItem_key->setText(ui.tableView->model()->data(ui.tableView->model()->index(index.row(), 0)).toString());		
 	}
 }
