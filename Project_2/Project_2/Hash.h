@@ -3,6 +3,9 @@
 const int DELIMITER = 1000000007;
 const int BASE = -1902945678;
 
+int hash(const QString & s);
+int hash(const std::string& s);
+
 template <class T>
 int hash(const T& obj)
 {
@@ -13,13 +16,3 @@ int hash(const T& obj)
 	return result;
 }
 
-int hash(const std::string& s) {
-	int result = BASE;
-	for (size_t i = 0; i < s.length(); i++)
-		result = result * BASE + DELIMITER * s[i];
-	return result;
-}
-
-int hash(const QString& s) {
-	return hash(s.toStdString());
-}

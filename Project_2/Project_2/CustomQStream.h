@@ -2,15 +2,6 @@
 #include <stdio.h>
 #include "qstring.h"
 
-std::ostream& operator<<(std::ostream& out, const QString & str)
-{
-	return out << str.toStdString();
-}
+std::ostream& operator<<(std::ostream& out, const QString & str);
 
-std::istream& operator>>(std::istream& in, QString & str)
-{
-	std::string s;
-	in >> s;
-	str = QString::fromStdString(s);
-	return in;
-}
+std::istream& operator>>(std::istream& in, QString & str);
