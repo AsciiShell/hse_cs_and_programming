@@ -1,3 +1,5 @@
+// This is a personal academic project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "QtGui_HashTable.h"
 
 QtGui_HashTable::QtGui_HashTable(QWidget *parent)
@@ -10,7 +12,7 @@ QtGui_HashTable::QtGui_HashTable(QWidget *parent)
 	ui.lineEdit_getTop->setValidator(new QRegExpValidator(int_exp, this));
 	connect(ui.tableView, SIGNAL(clicked(const QModelIndex &)), this, SLOT(onTableClicked(const QModelIndex &)));
 	_counter.addKey("Ivanov");
-	_counter.addKey("Петров");
+	_counter.addKey("пїЅпїЅпїЅпїЅпїЅпїЅ");
 
 
 	drawTable();

@@ -1,4 +1,5 @@
-#pragma once
+// This is a personal academic project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "Hash.h"
 int hash(const std::string& s) {
 	int result = BASE;
