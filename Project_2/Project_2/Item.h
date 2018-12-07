@@ -12,7 +12,7 @@ struct Item {
 	}
 	friend std::ostream& operator<<(std::ostream& out, const Item & item)
 	{
-		return out << item.key << " "
+		return out << item.key << std::endl
 			<< static_cast<__int64>(item.count) << std::endl;
 	}
 };

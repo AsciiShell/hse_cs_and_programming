@@ -218,6 +218,6 @@ _Pvt_Extensions
 
 *.json
 
-Project_1/QtGu_CookRobot/GeneratedFiles/
+**/GeneratedFiles/
 
 *.txt
